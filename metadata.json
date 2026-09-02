@@ -1,0 +1,6 @@
+{
+  "name": "Holy Bible+",
+  "description": "A peaceful, modern Bible reading and study application with audio, notes, highlights, reading plans, and API.Bible integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

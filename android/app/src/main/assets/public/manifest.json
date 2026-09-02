@@ -1,0 +1,25 @@
+{
+  "short_name": "Holy Bible+",
+  "name": "Holy Bible+ | Scripture, Audio & Daily Devotional",
+  "description": "Study the Holy Bible with multi-translation support, verse of the day, audio player, reading plans, and prayer journal.",
+  "icons": [
+    {
+      "src": "/assets/holy-bible-plus-logo.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/holy-bible-plus-logo.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#d97706",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "categories": ["books", "lifestyle", "education"]
+}

@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@keyframes slowKenBurns {
+  0% {
+    transform: scale(1) translate(0%, 0%);
+  }
+  50% {
+    transform: scale(1.08) translate(-1.5%, -1%);
+  }
+  100% {
+    transform: scale(1.04) translate(1%, 0.5%);
+  }
+}
+
+@keyframes slowPulseGlow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes slowFloatParticle1 {
+  0% {
+    transform: translateY(110%) translateX(0px) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-20%) translateX(25px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes slowFloatParticle2 {
+  0% {
+    transform: translateY(110%) translateX(0px) scale(1);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.9;
+  }
+  75% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-20%) translateX(-30px) scale(0.7);
+    opacity: 0;
+  }
+}
+
+@keyframes slowFloatParticle3 {
+  0% {
+    transform: translateY(110%) translateX(0px) scale(0.6);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.75;
+  }
+  70% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(-20%) translateX(15px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes slowRotateRay {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slowShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-slow-kenburns {
+  animation: slowKenBurns 28s ease-in-out infinite alternate;
+}
+
+.animate-slow-pulse-glow {
+  animation: slowPulseGlow 9s ease-in-out infinite;
+}
+
+.animate-slow-float-1 {
+  animation: slowFloatParticle1 14s ease-in-out infinite;
+}
+
+.animate-slow-float-2 {
+  animation: slowFloatParticle2 18s ease-in-out infinite 3s;
+}
+
+.animate-slow-float-3 {
+  animation: slowFloatParticle3 22s ease-in-out infinite 7s;
+}
+
+.animate-slow-rotate-ray {
+  animation: slowRotateRay 60s linear infinite;
+}
+
+.animate-slow-shimmer {
+  background-size: 200% 100%;
+  animation: slowShimmer 8s linear infinite;
+}

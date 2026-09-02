@@ -1,0 +1,96 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User account profile and authentication metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique user ID" },
+        "fullName": { "type": "string", "description": "User full display name" },
+        "email": { "type": "string", "format": "email", "description": "User email address" },
+        "passwordHash": { "type": "string", "description": "Bcrypt hashed password" },
+        "googleId": { "type": "string", "description": "Google OAuth subject ID" },
+        "avatarUrl": { "type": "string", "description": "Custom avatar URL" },
+        "profileImageType": { "type": "string", "enum": ["uploaded_photo", "avatar", "default"] },
+        "avatarId": { "type": "string", "description": "Preset avatar identifier" },
+        "avatarBgColor": { "type": "string", "description": "Avatar background color" },
+        "authProvider": { "type": "string", "enum": ["local", "google"] },
+        "role": { "type": "string", "enum": ["USER", "ADMIN"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "lastLoginAt": { "type": "string", "format": "date-time" },
+        "lastActiveAt": { "type": "string", "format": "date-time" },
+        "isActive": { "type": "boolean" },
+        "passwordResetToken": { "type": "string" },
+        "passwordResetExpires": { "type": "string" }
+      },
+      "required": ["id", "fullName", "email", "authProvider", "role", "createdAt", "updatedAt", "isActive"]
+    },
+    "UserSync": {
+      "title": "UserSync",
+      "description": "User synced bookmarks, notes, highlights, reading plans, and preferences",
+      "type": "object",
+      "properties": {
+        "bookmarks": { "type": "array" },
+        "highlights": { "type": "array" },
+        "notes": { "type": "array" },
+        "readingProgress": { "type": "object" },
+        "readingPlans": { "type": "array" },
+        "prayerRequests": { "type": "array" },
+        "readerSettings": { "type": "object" },
+        "favoriteSongIds": { "type": "array" },
+        "notificationSettings": { "type": "object" },
+        "audioSpeed": { "type": "number" },
+        "selectedBibleId": { "type": "string" },
+        "votdSelectedBg": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "UserAvatar": {
+      "title": "UserAvatar",
+      "description": "Dedicated cloud object store for user profile pictures",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "dataUrl": { "type": "string" },
+        "mimeType": { "type": "string" },
+        "sizeBytes": { "type": "number" },
+        "storageKey": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "dataUrl", "mimeType"]
+    },
+    "AnalyticsEvent": {
+      "title": "AnalyticsEvent",
+      "description": "User activity telemetry and feature usage events",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "sessionId": { "type": "string" },
+        "eventType": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "metadata": { "type": "object" }
+      },
+      "required": ["id", "sessionId", "eventType", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Registered user accounts"
+    },
+    "/userSyncData/{userId}": {
+      "schema": "UserSync",
+      "description": "Per-user bookmarks, notes, highlights, and plans"
+    },
+    "/userAvatars/{userId}": {
+      "schema": "UserAvatar",
+      "description": "Dedicated cloud object store for user profile pictures"
+    },
+    "/analyticsEvents/{eventId}": {
+      "schema": "AnalyticsEvent",
+      "description": "Application telemetry and feature events"
+    }
+  }
+}

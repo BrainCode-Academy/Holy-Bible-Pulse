@@ -1,0 +1,28 @@
+# Dependencies & Builds
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Vercel output
+.vercel
+
+# Android build artifacts
+android/.gradle/
+android/app/build/
+android/build/
+android/captures/
+.gradle/
+local.properties
+
+# Secrets & Configs
+firebase-applet-config.json
+firebase_applet_config.xml

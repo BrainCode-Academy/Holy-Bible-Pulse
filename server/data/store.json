@@ -1,0 +1,1143 @@
+{
+  "users": {
+    "usr_admin_b343411d2f30": {
+      "id": "usr_admin_b343411d2f30",
+      "fullName": "System Administrator",
+      "email": "winnerchinazor@gmail.com",
+      "passwordHash": "$2b$10$azINj7.9WJ95X7k41ax/h.d5WJpx1fwyAofXivdEogipcUUtMBUjm",
+      "googleId": null,
+      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "authProvider": "local",
+      "role": "ADMIN",
+      "createdAt": "2026-08-15T12:59:33.588Z",
+      "updatedAt": "2026-08-15T12:59:33.588Z",
+      "lastLoginAt": "2026-08-15T13:02:28.774Z",
+      "lastActiveAt": "2026-08-15T13:10:12.602Z",
+      "isActive": true
+    },
+    "usr_72f3bb6cbbc6f4ac": {
+      "id": "usr_72f3bb6cbbc6f4ac",
+      "fullName": "Test User",
+      "email": "testuser_1788361520906@example.com",
+      "passwordHash": "$2b$10$NIuqg2mxsQQiHlpv2GC8GOCBtSsxBTKkkWiLlqsCOBTDw5A2Ttzl.",
+      "googleId": null,
+      "avatarUrl": null,
+      "profileImageType": "default",
+      "avatarId": null,
+      "avatarBgColor": null,
+      "authProvider": "local",
+      "role": "USER",
+      "createdAt": "2026-09-02T15:05:21.218Z",
+      "updatedAt": "2026-09-02T15:05:21.218Z",
+      "lastLoginAt": "2026-09-02T15:05:21.218Z",
+      "lastActiveAt": "2026-09-02T15:05:21.218Z",
+      "isActive": true
+    }
+  },
+  "userSyncData": {
+    "usr_admin_b343411d2f30": {
+      "bookmarks": [
+        {
+          "id": "bm-1786637787258",
+          "verseId": "PSA.PSA.23.1",
+          "reference": "Psalm 23:1-3",
+          "text": "The LORD is my shepherd; I shall not want. He makes me lie down in green pastures. He leads me beside still waters. He restores my soul.",
+          "createdAt": "2026-08-13T16:16:27.258Z"
+        },
+        {
+          "id": "bm-1786635107187",
+          "verseId": "GEN.2.1",
+          "reference": "Genesis 2:1",
+          "text": "Genesis 2:1 — I will lift up my eyes unto the hills from whence comes my help; my help comes from the LORD who made heaven and earth.",
+          "createdAt": "2026-08-13T15:31:47.187Z"
+        },
+        {
+          "id": "bm-1",
+          "verseId": "PHIL.4.6",
+          "reference": "Philippians 4:6",
+          "text": "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.",
+          "createdAt": "2026-08-13T15:04:01.368Z",
+          "category": "Peace"
+        },
+        {
+          "id": "bm-2",
+          "verseId": "PSA.23.1",
+          "reference": "Psalm 23:1",
+          "text": "The LORD is my shepherd; I shall not want.",
+          "createdAt": "2026-08-12T15:04:01.368Z",
+          "category": "Comfort"
+        }
+      ],
+      "highlights": [
+        {
+          "id": "hl-1",
+          "verseId": "GEN.1.3",
+          "reference": "Genesis 1:3",
+          "color": "yellow",
+          "createdAt": "2026-08-13T15:04:01.369Z",
+          "textSnippet": "God said, \"Let there be light,\" and there was light."
+        },
+        {
+          "id": "hl-2",
+          "verseId": "JOHN.1.1",
+          "reference": "John 1:1",
+          "color": "blue",
+          "createdAt": "2026-08-13T15:04:01.369Z",
+          "textSnippet": "In the beginning was the Word, and the Word was with God, and the Word was God."
+        }
+      ],
+      "notes": [
+        {
+          "id": "note-1",
+          "verseId": "PHIL.4.6",
+          "reference": "Philippians 4:6-7",
+          "title": "Antidote to Anxiety",
+          "content": "Notice the transition: anxiety -> prayer with thanksgiving -> peace. Thanksgiving transforms our perspective before circumstances even change.",
+          "createdAt": "2026-08-13T15:04:01.370Z",
+          "updatedAt": "2026-08-13T15:04:01.370Z",
+          "tags": [
+            "Peace",
+            "Prayer",
+            "Faith"
+          ]
+        }
+      ],
+      "readingProgress": {
+        "lastReadBibleId": "de4e12af7f28f599-02",
+        "lastReadBookId": "MAT",
+        "lastReadChapterId": "MAT.1",
+        "lastReadReference": "Matthew 1",
+        "lastReadTimestamp": "2026-08-15T13:12:10.482Z",
+        "history": [
+          {
+            "bibleId": "de4e12af7f28f599-02",
+            "bookId": "MAT",
+            "chapterId": "MAT.1",
+            "reference": "Matthew 1",
+            "timestamp": "2026-08-15T13:12:10.482Z"
+          },
+          {
+            "bibleId": "d6e14a625393b4da-01",
+            "bookId": "GEN",
+            "chapterId": "GEN.1",
+            "reference": "Genesis 1",
+            "timestamp": "2026-08-15T13:11:24.565Z"
+          },
+          {
+            "bibleId": "55212e3cf5d04d49-01",
+            "bookId": "GEN",
+            "chapterId": "GEN.16",
+            "reference": "Genesis 16",
+            "timestamp": "2026-08-15T13:10:17.403Z"
+          },
+          {
+            "bibleId": "55212e3cf5d04d49-01",
+            "bookId": "EXO",
+            "chapterId": "EXO.15",
+            "reference": "Exodus 15",
+            "timestamp": "2026-08-14T13:33:28.830Z"
+          },
+          {
+            "bibleId": "55212e3cf5d04d49-01",
+            "bookId": "GEN",
+            "chapterId": "GEN.2",
+            "reference": "Genesis 2",
+            "timestamp": "2026-08-14T13:33:18.119Z"
+          },
+          {
+            "bibleId": "55212e3cf5d04d49-01",
+            "bookId": "PSA",
+            "chapterId": "PSA.23",
+            "reference": "Psalms 23",
+            "timestamp": "2026-08-13T16:02:19.317Z"
+          },
+          {
+            "bibleId": "web",
+            "bookId": "GEN",
+            "chapterId": "GEN.33",
+            "reference": "Genesis 33",
+            "timestamp": "2026-08-13T15:05:18.599Z"
+          }
+        ]
+      },
+      "readingPlans": [
+        {
+          "id": "gospels-30-days",
+          "title": "The Four Gospels in 30 Days",
+          "description": "Immerse yourself in the life, teachings, miracles, death, and resurrection of Jesus Christ across Matthew, Mark, Luke, and John.",
+          "category": "New Testament",
+          "durationDays": 30,
+          "currentDay": 1,
+          "isEnrolled": true,
+          "enrolledAt": "2026-08-13T15:04:01.307Z",
+          "days": [
+            {
+              "day": 1,
+              "title": "Matthew Chapters 1-4",
+              "references": [
+                "MAT.1",
+                "MAT.2"
+              ],
+              "completed": true,
+              "completedAt": "2026-08-13T15:04:01.307Z"
+            },
+            {
+              "day": 2,
+              "title": "Matthew Chapters 5-8",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 3,
+              "title": "Matthew Chapters 9-12",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 4,
+              "title": "Matthew Chapters 13-16",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 5,
+              "title": "Matthew Chapters 17-20",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 6,
+              "title": "Matthew Chapters 21-24",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 7,
+              "title": "Matthew Chapters 25-28",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 8,
+              "title": "Mark Chapters 1-3",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 9,
+              "title": "Mark Chapters 4-6",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 10,
+              "title": "Mark Chapters 7-9",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 11,
+              "title": "Mark Chapters 10-12",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 12,
+              "title": "Mark Chapters 13-15",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 13,
+              "title": "Luke Chapters 1-3",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 14,
+              "title": "Luke Chapters 4-6",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 15,
+              "title": "Luke Chapters 7-9",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 16,
+              "title": "Luke Chapters 10-12",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 17,
+              "title": "Luke Chapters 13-15",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 18,
+              "title": "Luke Chapters 16-18",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 19,
+              "title": "Luke Chapters 19-21",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 20,
+              "title": "Luke Chapters 22-24",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 21,
+              "title": "John Chapters 1-2",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 22,
+              "title": "John Chapters 3-4",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 23,
+              "title": "John Chapters 5-6",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 24,
+              "title": "John Chapters 7-8",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 25,
+              "title": "John Chapters 9-10",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 26,
+              "title": "John Chapters 11-12",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 27,
+              "title": "John Chapters 13-14",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 28,
+              "title": "John Chapters 15-16",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 29,
+              "title": "John Chapters 17-18",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 30,
+              "title": "John Chapters 19-20",
+              "references": [
+                "MAT.5",
+                "MAT.6"
+              ],
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "psalms-proverbs-15-days",
+          "title": "Wisdom & Worship: Psalms & Proverbs",
+          "description": "Find daily comfort, encouragement, and actionable heavenly wisdom through selected psalms of praise and proverbs for living.",
+          "category": "Topical",
+          "durationDays": 15,
+          "currentDay": 1,
+          "isEnrolled": false,
+          "days": [
+            {
+              "day": 1,
+              "title": "Day 1: Psalm 1 & Proverbs 1",
+              "references": [
+                "PSA.1",
+                "PROV.1"
+              ],
+              "completed": false
+            },
+            {
+              "day": 2,
+              "title": "Day 2: Psalm 11 & Proverbs 2",
+              "references": [
+                "PSA.11",
+                "PROV.2"
+              ],
+              "completed": false
+            },
+            {
+              "day": 3,
+              "title": "Day 3: Psalm 21 & Proverbs 3",
+              "references": [
+                "PSA.21",
+                "PROV.3"
+              ],
+              "completed": false
+            },
+            {
+              "day": 4,
+              "title": "Day 4: Psalm 31 & Proverbs 4",
+              "references": [
+                "PSA.31",
+                "PROV.4"
+              ],
+              "completed": false
+            },
+            {
+              "day": 5,
+              "title": "Day 5: Psalm 41 & Proverbs 5",
+              "references": [
+                "PSA.41",
+                "PROV.5"
+              ],
+              "completed": false
+            },
+            {
+              "day": 6,
+              "title": "Day 6: Psalm 51 & Proverbs 6",
+              "references": [
+                "PSA.51",
+                "PROV.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 7,
+              "title": "Day 7: Psalm 61 & Proverbs 7",
+              "references": [
+                "PSA.61",
+                "PROV.7"
+              ],
+              "completed": false
+            },
+            {
+              "day": 8,
+              "title": "Day 8: Psalm 71 & Proverbs 8",
+              "references": [
+                "PSA.71",
+                "PROV.8"
+              ],
+              "completed": false
+            },
+            {
+              "day": 9,
+              "title": "Day 9: Psalm 81 & Proverbs 9",
+              "references": [
+                "PSA.81",
+                "PROV.9"
+              ],
+              "completed": false
+            },
+            {
+              "day": 10,
+              "title": "Day 10: Psalm 91 & Proverbs 10",
+              "references": [
+                "PSA.91",
+                "PROV.10"
+              ],
+              "completed": false
+            },
+            {
+              "day": 11,
+              "title": "Day 11: Psalm 101 & Proverbs 11",
+              "references": [
+                "PSA.101",
+                "PROV.11"
+              ],
+              "completed": false
+            },
+            {
+              "day": 12,
+              "title": "Day 12: Psalm 111 & Proverbs 12",
+              "references": [
+                "PSA.111",
+                "PROV.12"
+              ],
+              "completed": false
+            },
+            {
+              "day": 13,
+              "title": "Day 13: Psalm 121 & Proverbs 13",
+              "references": [
+                "PSA.121",
+                "PROV.13"
+              ],
+              "completed": false
+            },
+            {
+              "day": 14,
+              "title": "Day 14: Psalm 131 & Proverbs 14",
+              "references": [
+                "PSA.131",
+                "PROV.14"
+              ],
+              "completed": false
+            },
+            {
+              "day": 15,
+              "title": "Day 15: Psalm 141 & Proverbs 15",
+              "references": [
+                "PSA.141",
+                "PROV.15"
+              ],
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "overcoming-anxiety-7-days",
+          "title": "Finding Peace: Overcoming Anxiety",
+          "description": "Scripture verses, reflections, and prayers designed to break the grip of worry and anchor your spirit in Christ’s peace.",
+          "category": "Topical",
+          "durationDays": 7,
+          "currentDay": 1,
+          "isEnrolled": false,
+          "days": [
+            {
+              "day": 1,
+              "title": "Cast Your Cares (Philippians 4)",
+              "references": [
+                "PHIL.4"
+              ],
+              "completed": false
+            },
+            {
+              "day": 2,
+              "title": "The Lord is My Shepherd (Psalm 23)",
+              "references": [
+                "PSA.23"
+              ],
+              "completed": false
+            },
+            {
+              "day": 3,
+              "title": "Secret Place of Safety (Psalm 91)",
+              "references": [
+                "PSA.91"
+              ],
+              "completed": false
+            },
+            {
+              "day": 4,
+              "title": "Do Not Worry (Matthew 6)",
+              "references": [
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 5,
+              "title": "Renewed Strength (Isaiah 40)",
+              "references": [
+                "ISA.40"
+              ],
+              "completed": false
+            },
+            {
+              "day": 6,
+              "title": "Peace I Leave With You (John 14)",
+              "references": [
+                "JOHN.14"
+              ],
+              "completed": false
+            },
+            {
+              "day": 7,
+              "title": "More Than Conquerors (Romans 8)",
+              "references": [
+                "ROM.8"
+              ],
+              "completed": false
+            }
+          ]
+        },
+        {
+          "id": "bible-in-a-year",
+          "title": "Through the Bible in a Year",
+          "description": "A balanced daily journey reading Old Testament, New Testament, Psalms, and Proverbs every day.",
+          "category": "General",
+          "durationDays": 365,
+          "currentDay": 1,
+          "isEnrolled": false,
+          "days": [
+            {
+              "day": 1,
+              "title": "Day 1: Genesis & Matthew Journey",
+              "references": [
+                "GEN.1",
+                "MAT.1"
+              ],
+              "completed": false
+            },
+            {
+              "day": 2,
+              "title": "Day 2: Genesis & Matthew Journey",
+              "references": [
+                "GEN.2",
+                "MAT.2"
+              ],
+              "completed": false
+            },
+            {
+              "day": 3,
+              "title": "Day 3: Genesis & Matthew Journey",
+              "references": [
+                "GEN.3",
+                "MAT.3"
+              ],
+              "completed": false
+            },
+            {
+              "day": 4,
+              "title": "Day 4: Genesis & Matthew Journey",
+              "references": [
+                "GEN.4",
+                "MAT.4"
+              ],
+              "completed": false
+            },
+            {
+              "day": 5,
+              "title": "Day 5: Genesis & Matthew Journey",
+              "references": [
+                "GEN.5",
+                "MAT.5"
+              ],
+              "completed": false
+            },
+            {
+              "day": 6,
+              "title": "Day 6: Genesis & Matthew Journey",
+              "references": [
+                "GEN.6",
+                "MAT.6"
+              ],
+              "completed": false
+            },
+            {
+              "day": 7,
+              "title": "Day 7: Genesis & Matthew Journey",
+              "references": [
+                "GEN.7",
+                "MAT.7"
+              ],
+              "completed": false
+            },
+            {
+              "day": 8,
+              "title": "Day 8: Genesis & Matthew Journey",
+              "references": [
+                "GEN.8",
+                "MAT.8"
+              ],
+              "completed": false
+            },
+            {
+              "day": 9,
+              "title": "Day 9: Genesis & Matthew Journey",
+              "references": [
+                "GEN.9",
+                "MAT.9"
+              ],
+              "completed": false
+            },
+            {
+              "day": 10,
+              "title": "Day 10: Genesis & Matthew Journey",
+              "references": [
+                "GEN.10",
+                "MAT.10"
+              ],
+              "completed": false
+            },
+            {
+              "day": 11,
+              "title": "Day 11: Genesis & Matthew Journey",
+              "references": [
+                "GEN.11",
+                "MAT.11"
+              ],
+              "completed": false
+            },
+            {
+              "day": 12,
+              "title": "Day 12: Genesis & Matthew Journey",
+              "references": [
+                "GEN.12",
+                "MAT.12"
+              ],
+              "completed": false
+            },
+            {
+              "day": 13,
+              "title": "Day 13: Genesis & Matthew Journey",
+              "references": [
+                "GEN.13",
+                "MAT.13"
+              ],
+              "completed": false
+            },
+            {
+              "day": 14,
+              "title": "Day 14: Genesis & Matthew Journey",
+              "references": [
+                "GEN.14",
+                "MAT.14"
+              ],
+              "completed": false
+            },
+            {
+              "day": 15,
+              "title": "Day 15: Genesis & Matthew Journey",
+              "references": [
+                "GEN.15",
+                "MAT.15"
+              ],
+              "completed": false
+            },
+            {
+              "day": 16,
+              "title": "Day 16: Genesis & Matthew Journey",
+              "references": [
+                "GEN.16",
+                "MAT.16"
+              ],
+              "completed": false
+            },
+            {
+              "day": 17,
+              "title": "Day 17: Genesis & Matthew Journey",
+              "references": [
+                "GEN.17",
+                "MAT.17"
+              ],
+              "completed": false
+            },
+            {
+              "day": 18,
+              "title": "Day 18: Genesis & Matthew Journey",
+              "references": [
+                "GEN.18",
+                "MAT.18"
+              ],
+              "completed": false
+            },
+            {
+              "day": 19,
+              "title": "Day 19: Genesis & Matthew Journey",
+              "references": [
+                "GEN.19",
+                "MAT.19"
+              ],
+              "completed": false
+            },
+            {
+              "day": 20,
+              "title": "Day 20: Genesis & Matthew Journey",
+              "references": [
+                "GEN.20",
+                "MAT.20"
+              ],
+              "completed": false
+            },
+            {
+              "day": 21,
+              "title": "Day 21: Genesis & Matthew Journey",
+              "references": [
+                "GEN.21",
+                "MAT.21"
+              ],
+              "completed": false
+            },
+            {
+              "day": 22,
+              "title": "Day 22: Genesis & Matthew Journey",
+              "references": [
+                "GEN.22",
+                "MAT.22"
+              ],
+              "completed": false
+            },
+            {
+              "day": 23,
+              "title": "Day 23: Genesis & Matthew Journey",
+              "references": [
+                "GEN.23",
+                "MAT.23"
+              ],
+              "completed": false
+            },
+            {
+              "day": 24,
+              "title": "Day 24: Genesis & Matthew Journey",
+              "references": [
+                "GEN.24",
+                "MAT.24"
+              ],
+              "completed": false
+            },
+            {
+              "day": 25,
+              "title": "Day 25: Genesis & Matthew Journey",
+              "references": [
+                "GEN.25",
+                "MAT.25"
+              ],
+              "completed": false
+            },
+            {
+              "day": 26,
+              "title": "Day 26: Genesis & Matthew Journey",
+              "references": [
+                "GEN.26",
+                "MAT.26"
+              ],
+              "completed": false
+            },
+            {
+              "day": 27,
+              "title": "Day 27: Genesis & Matthew Journey",
+              "references": [
+                "GEN.27",
+                "MAT.27"
+              ],
+              "completed": false
+            },
+            {
+              "day": 28,
+              "title": "Day 28: Genesis & Matthew Journey",
+              "references": [
+                "GEN.28",
+                "MAT.28"
+              ],
+              "completed": false
+            },
+            {
+              "day": 29,
+              "title": "Day 29: Genesis & Matthew Journey",
+              "references": [
+                "GEN.29",
+                "MAT.29"
+              ],
+              "completed": false
+            },
+            {
+              "day": 30,
+              "title": "Day 30: Genesis & Matthew Journey",
+              "references": [
+                "GEN.30",
+                "MAT.30"
+              ],
+              "completed": false
+            }
+          ]
+        }
+      ],
+      "prayerRequests": [
+        {
+          "id": "p-1786637623757",
+          "title": "help me lord",
+          "category": "Personal",
+          "isAnswered": false,
+          "createdAt": "2026-08-13T16:13:43.757Z"
+        },
+        {
+          "id": "p-1",
+          "title": "Peace and wisdom in daily decisions",
+          "category": "Guidance",
+          "isAnswered": false,
+          "createdAt": "2026-08-13T16:13:28.862Z"
+        },
+        {
+          "id": "p-2",
+          "title": "Health and divine protection for my family",
+          "category": "Protection",
+          "isAnswered": true,
+          "createdAt": "2026-08-11T16:13:28.862Z"
+        }
+      ],
+      "readerSettings": {
+        "fontSize": 18,
+        "fontFamily": "serif",
+        "themeMode": "light",
+        "lineSpacing": "comfortable",
+        "showVerseNumbers": true,
+        "redLetter": true,
+        "justifyText": false,
+        "autoPlayNextChapter": false,
+        "selectedVoiceURI": null
+      },
+      "favoriteSongIds": [
+        "hymn-1",
+        "hymn-3"
+      ],
+      "updatedAt": "2026-08-15T13:12:12.288Z"
+    }
+  },
+  "analyticsEvents": [
+    {
+      "id": "evt_6bc10d9f642cb828",
+      "userId": null,
+      "sessionId": "sess_xhjo1dwit_1786798783804",
+      "eventType": "app_open",
+      "timestamp": "2026-08-15T12:59:44.521Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_6d24cad46793c051",
+      "userId": null,
+      "sessionId": "sess_xhjo1dwit_1786798783804",
+      "eventType": "session_start",
+      "timestamp": "2026-08-15T12:59:44.525Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_035e760371bece75",
+      "userId": null,
+      "sessionId": "sess_xhjo1dwit_1786798783804",
+      "eventType": "bible_opened",
+      "timestamp": "2026-08-15T13:00:42.296Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_cfb2fcd03eb8832c",
+      "userId": "usr_admin_b343411d2f30",
+      "sessionId": "sess_log_usr_admin_b343411d2f30",
+      "eventType": "login",
+      "timestamp": "2026-08-15T13:01:20.358Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_999259a8e403e814",
+      "userId": null,
+      "sessionId": "sess_out",
+      "eventType": "logout",
+      "timestamp": "2026-08-15T13:02:22.955Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_5f4d6c53a7796398",
+      "userId": "usr_admin_b343411d2f30",
+      "sessionId": "sess_log_usr_admin_b343411d2f30",
+      "eventType": "login",
+      "timestamp": "2026-08-15T13:02:28.774Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_3dd1bbc71799760d",
+      "userId": "usr_admin_b343411d2f30",
+      "sessionId": "sess_xhjo1dwit_1786798783804",
+      "eventType": "bible_opened",
+      "timestamp": "2026-08-15T13:10:12.603Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_6f3eb80e40f70599",
+      "userId": "usr_admin_b343411d2f30",
+      "sessionId": "sess_xhjo1dwit_1786798783804",
+      "eventType": "chapter_opened",
+      "timestamp": "2026-08-15T13:10:17.571Z",
+      "metadata": {
+        "bookId": "GEN",
+        "chapterRef": "Genesis 16",
+        "bibleVersion": "55212e3cf5d04d49-01"
+      }
+    },
+    {
+      "id": "evt_e43fdf8506bb3699",
+      "userId": "usr_admin_b343411d2f30",
+      "sessionId": "sess_xhjo1dwit_1786798783804",
+      "eventType": "audio_tts_played",
+      "timestamp": "2026-08-15T13:10:24.370Z",
+      "metadata": {
+        "chapterRef": "Genesis 16",
+        "languageCode": "eng",
+        "verseCount": 16
+      }
+    },
+    {
+      "id": "evt_46924415285f5418",
+      "userId": "usr_admin_b343411d2f30",
+      "sessionId": "sess_xhjo1dwit_1786798783804",
+      "eventType": "bible_opened",
+      "timestamp": "2026-08-15T13:10:41.933Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_6b2e1dd1f4e87bef",
+      "userId": "usr_admin_b343411d2f30",
+      "sessionId": "sess_xhjo1dwit_1786798783804",
+      "eventType": "chapter_opened",
+      "timestamp": "2026-08-15T13:11:24.700Z",
+      "metadata": {
+        "bookId": "GEN",
+        "chapterRef": "Genesis 1",
+        "bibleVersion": "d6e14a625393b4da-01"
+      }
+    },
+    {
+      "id": "evt_d8eecdf36e5b9e9e",
+      "userId": "usr_admin_b343411d2f30",
+      "sessionId": "sess_xhjo1dwit_1786798783804",
+      "eventType": "bible_opened",
+      "timestamp": "2026-08-15T13:11:45.499Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_2ce6f323debc0208",
+      "userId": "usr_admin_b343411d2f30",
+      "sessionId": "sess_xhjo1dwit_1786798783804",
+      "eventType": "chapter_opened",
+      "timestamp": "2026-08-15T13:11:51.604Z",
+      "metadata": {
+        "bookId": "MAT",
+        "chapterRef": "Matthew 1",
+        "bibleVersion": "d6e14a625393b4da-01"
+      }
+    },
+    {
+      "id": "evt_753672d39dbe967e",
+      "userId": "usr_74a4865abfbf8462",
+      "sessionId": "sess_reg_usr_74a4865abfbf8462",
+      "eventType": "account_created",
+      "timestamp": "2026-08-15T13:12:17.166Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_231b6f6534769916",
+      "userId": "usr_74a4865abfbf8462",
+      "sessionId": "sess_reg_usr_74a4865abfbf8462",
+      "eventType": "login",
+      "timestamp": "2026-08-15T13:12:17.166Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_47528f049145ccc2",
+      "userId": null,
+      "sessionId": "sess_123",
+      "eventType": "test_event",
+      "timestamp": "2026-09-02T15:05:08.390Z",
+      "metadata": {
+        "test": true
+      }
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "lastUpdated": "2026-09-02T15:05:21.218Z"
+  }
+}

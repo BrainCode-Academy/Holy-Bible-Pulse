@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // User profile documents
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
+    // User cloud synchronization data (bookmarks, highlights, notes, plans, prayer, settings)
+    match /userSyncData/{userId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // User avatar storage documents
+    match /userAvatars/{userId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Analytics and telemetry events
+    match /analyticsEvents/{eventId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Default fallback
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
