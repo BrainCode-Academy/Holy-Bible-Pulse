@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BibleProviderContext, useBible } from './context/BibleContext';
 import { scheduleNextVotdNotification } from './services/notificationService';
+import { audioService } from './services/audioService';
 import { NavigationHeader, BottomNavigation } from './components/Navigation';
 import { SplashScreen } from './components/SplashScreen';
 import { HomeScreen } from './components/screens/HomeScreen';
@@ -21,6 +22,8 @@ import { NoteModal } from './components/modals/NoteModal';
 import { ShareVerseModal } from './components/modals/ShareVerseModal';
 import { PrayerModal } from './components/modals/PrayerModal';
 import { AuthModal } from './components/modals/AuthModal';
+import { MessageOutlineModal } from './components/modals/MessageOutlineModal';
+import { AudioPlayerBar } from './components/audio/AudioPlayerBar';
 
 import { Verse, Note } from './types';
 
@@ -43,6 +46,10 @@ const MainAppContent: React.FC = () => {
   const [shareReference, setShareReference] = useState<string>('');
 
   const [prayerModalOpen, setPrayerModalOpen] = useState<boolean>(false);
+
+  // Message Outline Generator Modal State
+  const [outlineModalOpen, setOutlineModalOpen] = useState<boolean>(false);
+  const [outlineInitialTopic, setOutlineInitialTopic] = useState<string>('');
 
   useEffect(() => {
     // Schedule all active notification categories (VOTD, Devotional, Plan, Prayer)
@@ -108,6 +115,11 @@ const MainAppContent: React.FC = () => {
     setShareModalOpen(true);
   };
 
+  const handleOpenMessageOutline = (topicOrPassage?: string) => {
+    setOutlineInitialTopic(topicOrPassage || '');
+    setOutlineModalOpen(true);
+  };
+
   const isDark = readerSettings.themeMode === 'dark';
   const isSepia = readerSettings.themeMode === 'sepia';
 
@@ -135,6 +147,7 @@ const MainAppContent: React.FC = () => {
           <HomeScreen
             onOpenPrayer={() => setPrayerModalOpen(true)}
             onOpenShareVerse={(text, ref) => handleOpenShareModal(text, ref)}
+            onOpenMessageOutline={() => handleOpenMessageOutline()}
           />
         )}
 
@@ -143,6 +156,7 @@ const MainAppContent: React.FC = () => {
         {activeTab === 'reader' && (
           <BibleReaderScreen
             onOpenContextMenu={verse => setSelectedVerseForContext(verse)}
+            onOpenMessageOutline={ref => handleOpenMessageOutline(ref)}
           />
         )}
 
@@ -169,11 +183,26 @@ const MainAppContent: React.FC = () => {
         {activeTab === 'devotional' && <DevotionalScreen />}
       </main>
 
+      {/* Persistent Audio Mini-Player / Bar */}
+      <AudioPlayerBar
+        onClose={() => audioService.stop()}
+        onNavigateToReader={() => setActiveTab('reader')}
+      />
+
       {/* Bottom Sticky Tab Bar */}
       <BottomNavigation />
 
       {/* Global Action Modals */}
       <AuthModal />
+
+      <MessageOutlineModal
+        isOpen={outlineModalOpen}
+        onClose={() => setOutlineModalOpen(false)}
+        initialTopicOrPassage={outlineInitialTopic}
+        onSavedAsNote={() => {
+          // Switch to saved tab or show note
+        }}
+      />
 
       <VerseContextMenuModal
         verse={selectedVerseForContext}

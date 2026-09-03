@@ -4,6 +4,7 @@ import authRoutes from './routes/authRoutes';
 import userSyncRoutes from './routes/userSyncRoutes';
 import analyticsRoutes from './routes/analyticsRoutes';
 import adminRoutes from './routes/adminRoutes';
+import aiRoutes from './routes/aiRoutes';
 import { storageService } from './services/storageService';
 
 /**
@@ -112,11 +113,12 @@ export function createExpressApp() {
     }
   });
 
-  // --- AUTH, USER SYNC, ANALYTICS & ADMIN ROUTES ---
+  // --- AUTH, USER SYNC, ANALYTICS, ADMIN & AI ROUTES ---
   app.use('/api/auth', authRoutes);
   app.use('/api/user', userSyncRoutes);
   app.use('/api/analytics', analyticsRoutes);
   app.use('/api/admin', adminRoutes);
+  app.use('/api/ai', aiRoutes);
 
   // --- SCRIPTURE API ROUTES ---
 

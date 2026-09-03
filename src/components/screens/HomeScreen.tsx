@@ -4,6 +4,7 @@ import { getVerseOfDay, getDailyDevotional } from '../../services/api';
 import { DailyVerse, DailyDevotional } from '../../types';
 import { VerseOfTheDayHero } from '../home/VerseOfTheDayHero';
 import { VotdNotificationModal } from '../modals/VotdNotificationModal';
+import { AdBanner } from '../common/AdBanner';
 import { APP_LOGO, APP_LOGO_ALT } from '../../constants/assets';
 import { useDynamicGreeting } from '../../utils/greetingUtils';
 import {
@@ -21,12 +22,14 @@ import {
   BookMarked,
   Music,
   Clock,
+  FileText,
 } from 'lucide-react';
 
 export const HomeScreen: React.FC<{
   onOpenPrayer: () => void;
   onOpenShareVerse: (verseText: string, reference: string) => void;
-}> = ({ onOpenPrayer, onOpenShareVerse }) => {
+  onOpenMessageOutline?: () => void;
+}> = ({ onOpenPrayer, onOpenShareVerse, onOpenMessageOutline }) => {
   const {
     openReader,
     setActiveTab,
@@ -92,11 +95,14 @@ export const HomeScreen: React.FC<{
   const getGreetingIcon = () => {
     switch (greetingInfo.period) {
       case 'morning':
-        return <Sun className="w-4 h-4 text-amber-500 animate-spin-slow" />;
+        return <Sun className="w-4 h-4 text-amber-500" />;
       case 'afternoon':
         return <Coffee className="w-4 h-4 text-amber-600" />;
       case 'evening':
-        return <Moon className="w-4 h-4 text-amber-400" />;
+        return <Sun className="w-4 h-4 text-orange-500" />;
+      case 'night':
+      default:
+        return <Moon className="w-4 h-4 text-indigo-400" />;
     }
   };
 
@@ -268,7 +274,52 @@ export const HomeScreen: React.FC<{
         </div>
       )}
 
-      {/* 5. QUICK ACTIONS & STUDY HUB */}
+      {/* 5. MESSAGE OUTLINE FEATURE PROMOTION BANNER */}
+      {onOpenMessageOutline && (
+        <div
+          id="home-message-outline-banner"
+          className={`p-5 rounded-3xl border ${cardBg} space-y-3 relative overflow-hidden transition`}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <div className="p-2 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400">
+                <Sparkles className="w-4 h-4 text-amber-500" />
+              </div>
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+                Sermon &amp; Message Homiletics
+              </span>
+            </div>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-800 dark:text-amber-300 uppercase">
+              AI Assisted
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between gap-3 pt-1">
+            <div className="space-y-0.5">
+              <h3 className="font-serif text-base sm:text-lg font-bold text-stone-900 dark:text-stone-100">
+                Bible Message Outline Generator
+              </h3>
+              <p className={`text-xs ${subText}`}>
+                Instantly structure expository outlines, illustrations, and applications for preaching or small groups.
+              </p>
+            </div>
+
+            <button
+              onClick={onOpenMessageOutline}
+              id="home-open-outline-generator-btn"
+              className="px-4 py-2.5 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md shadow-amber-600/20 flex items-center space-x-1.5 transition active:scale-95 shrink-0"
+            >
+              <span>Build Outline</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* 6. ADMOB BANNER AD */}
+      <AdBanner placement="home" />
+
+      {/* 7. QUICK ACTIONS & STUDY HUB */}
       <div className="space-y-2.5">
         <div className="flex items-center justify-between px-1">
           <span className="text-xs font-bold uppercase tracking-wider text-stone-600 dark:text-stone-400">

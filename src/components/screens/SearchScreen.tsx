@@ -4,6 +4,7 @@ import { searchScripture } from '../../services/api';
 import { Verse } from '../../types';
 import { Search, X, History, Trash2, ArrowRight, AlertTriangle, RefreshCw, ChevronDown } from 'lucide-react';
 import { BibleVersionSelectorModal } from '../modals/BibleVersionSelectorModal';
+import { AdBanner } from '../common/AdBanner';
 
 const TOPICAL_TAGS = [
   'Peace',
@@ -293,6 +294,9 @@ export const SearchScreen: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* AdMob Banner for Search */}
+      <AdBanner placement="search" />
 
       {/* Initial Landing Graphic / Guidance */}
       {!hasSearched && !isSearching && (

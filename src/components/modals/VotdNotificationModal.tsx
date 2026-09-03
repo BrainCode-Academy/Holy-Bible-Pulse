@@ -16,6 +16,10 @@ import {
   ChevronRight,
   Info,
   Timer,
+  Sun,
+  Coffee,
+  Sunset,
+  Moon,
 } from 'lucide-react';
 import {
   AppNotificationSettings,
@@ -26,6 +30,10 @@ import {
   sendDevotionalNotification,
   sendReadingPlanNotification,
   sendPrayerReminderNotification,
+  sendMorningGreetingNotification,
+  sendAfternoonGreetingNotification,
+  sendEveningGreetingNotification,
+  sendNightGreetingNotification,
   scheduleAllNotifications,
 } from '../../services/notificationService';
 import { getAndroidBridgeStatus } from '../../services/androidNotificationBridge';
@@ -46,10 +54,10 @@ export const VotdNotificationModal: React.FC<VotdNotificationModalProps> = ({
   const { readerSettings, activeTab, plans, devotional } = useBible();
   const [settings, setSettings] = useState<AppNotificationSettings>(getNotificationSettings);
   const [permissionState, setPermissionState] = useState<NotificationPermission>('default');
-  const [activeSubTab, setActiveSubTab] = useState<'reminders' | 'testing' | 'android'>('reminders');
+  const [activeSubTab, setActiveSubTab] = useState<'reminders' | 'greetings' | 'testing' | 'android'>('greetings');
   
   // Testing state
-  const [testType, setTestType] = useState<'votd' | 'devotional' | 'plan' | 'prayer'>('votd');
+  const [testType, setTestType] = useState<'morning' | 'afternoon' | 'evening' | 'night' | 'votd' | 'devotional' | 'plan' | 'prayer'>('morning');
   const [testStatus, setTestStatus] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<number | null>(null);
 
@@ -120,7 +128,15 @@ export const VotdNotificationModal: React.FC<VotdNotificationModalProps> = ({
     }
 
     let success = false;
-    if (testType === 'votd') {
+    if (testType === 'morning') {
+      success = await sendMorningGreetingNotification();
+    } else if (testType === 'afternoon') {
+      success = await sendAfternoonGreetingNotification();
+    } else if (testType === 'evening') {
+      success = await sendEveningGreetingNotification();
+    } else if (testType === 'night') {
+      success = await sendNightGreetingNotification();
+    } else if (testType === 'votd') {
       success = await sendDailyVerseNotification(verseOfDay);
     } else if (testType === 'devotional') {
       success = await sendDevotionalNotification();
@@ -207,7 +223,7 @@ export const VotdNotificationModal: React.FC<VotdNotificationModalProps> = ({
             </div>
             <div>
               <h2 className="font-serif font-bold text-lg leading-tight">Daily Notifications &amp; Reminders</h2>
-              <p className={`text-xs ${subText}`}>Never miss your daily walk with God</p>
+              <p className={`text-xs ${subText}`}>Greetings, Scripture reminders, and prayer alerts</p>
             </div>
           </div>
 
@@ -221,43 +237,55 @@ export const VotdNotificationModal: React.FC<VotdNotificationModalProps> = ({
         </div>
 
         {/* Modal Navigation Tabs */}
-        <div className="px-5 pt-3 pb-1 border-b border-stone-200/40 dark:border-stone-800/60 flex space-x-2">
+        <div className="px-5 pt-3 pb-1 border-b border-stone-200/40 dark:border-stone-800/60 flex space-x-2 overflow-x-auto">
+          <button
+            onClick={() => setActiveSubTab('greetings')}
+            id="notif-tab-greetings"
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap ${
+              activeSubTab === 'greetings'
+                ? 'bg-amber-600 text-white shadow-xs'
+                : 'text-stone-500 hover:text-stone-800 dark:hover:text-stone-200'
+            }`}
+          >
+            Daily Greetings
+          </button>
+
           <button
             onClick={() => setActiveSubTab('reminders')}
             id="notif-tab-reminders"
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap ${
               activeSubTab === 'reminders'
                 ? 'bg-amber-600 text-white shadow-xs'
                 : 'text-stone-500 hover:text-stone-800 dark:hover:text-stone-200'
             }`}
           >
-            Schedules &amp; Toggles
+            Bible &amp; Prayer
           </button>
 
           <button
             onClick={() => setActiveSubTab('testing')}
             id="notif-tab-testing"
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1 ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1 whitespace-nowrap ${
               activeSubTab === 'testing'
                 ? 'bg-amber-600 text-white shadow-xs'
                 : 'text-stone-500 hover:text-stone-800 dark:hover:text-stone-200'
             }`}
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Test Notifications</span>
+            <span>Test Alerts</span>
           </button>
 
           <button
             onClick={() => setActiveSubTab('android')}
             id="notif-tab-android"
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1 ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1 whitespace-nowrap ${
               activeSubTab === 'android'
                 ? 'bg-amber-600 text-white shadow-xs'
                 : 'text-stone-500 hover:text-stone-800 dark:hover:text-stone-200'
             }`}
           >
             <Smartphone className="w-3.5 h-3.5" />
-            <span>Android Architecture</span>
+            <span>Android</span>
           </button>
         </div>
 
@@ -291,7 +319,7 @@ export const VotdNotificationModal: React.FC<VotdNotificationModalProps> = ({
               <p className={`text-xs ${subText}`}>
                 {permissionState === 'denied'
                   ? 'Notifications are blocked in your browser site permissions. Click the lock/info icon in your browser URL bar to allow notifications for this site.'
-                  : 'Enable notifications to receive daily Scripture verses, devotional reflections, and reading reminders.'}
+                  : 'Enable notifications to receive daily Greetings, Scripture verses, devotional reflections, and reading reminders.'}
               </p>
 
               {permissionState !== 'denied' && (
@@ -307,7 +335,184 @@ export const VotdNotificationModal: React.FC<VotdNotificationModalProps> = ({
             </div>
           )}
 
-          {/* TAB 1: REMINDERS & SCHEDULES */}
+          {/* TAB: GREETINGS */}
+          {activeSubTab === 'greetings' && (
+            <div className="space-y-3">
+              <p className={`text-xs ${subText}`}>
+                Receive uplifting greetings aligned with your local 4-part daily cycle:
+              </p>
+
+              {/* 1. Good Morning */}
+              <div className={`p-4 rounded-2xl border ${cardInnerBg} space-y-3`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                      <Sun className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-xs uppercase tracking-wider">Good Morning Greeting</div>
+                      <div className={`text-[11px] ${subText}`}>Morning peace &amp; Lamentations 3:22-23</div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => updateField('morningGreetingEnabled', !settings.morningGreetingEnabled)}
+                    id="toggle-morning-greeting-btn"
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition ${
+                      settings.morningGreetingEnabled
+                        ? 'bg-amber-600 text-white shadow-xs'
+                        : 'bg-stone-200 dark:bg-stone-700 text-stone-600 dark:text-stone-300'
+                    }`}
+                  >
+                    {settings.morningGreetingEnabled ? 'ON' : 'OFF'}
+                  </button>
+                </div>
+
+                {settings.morningGreetingEnabled && (
+                  <div className="pt-2 border-t border-stone-200/50 dark:border-stone-700/50 flex items-center justify-between text-xs animate-fadeIn">
+                    <span className="font-semibold text-stone-600 dark:text-stone-300 flex items-center space-x-1">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>Custom Morning Time:</span>
+                    </span>
+                    <input
+                      type="time"
+                      value={settings.morningGreetingTime}
+                      onChange={e => updateField('morningGreetingTime', e.target.value)}
+                      className="p-1.5 rounded-xl border bg-stone-100 dark:bg-stone-800 text-xs font-semibold text-stone-800 dark:text-stone-200 outline-none focus:ring-2 focus:ring-amber-500"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* 2. Good Afternoon */}
+              <div className={`p-4 rounded-2xl border ${cardInnerBg} space-y-3`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                      <Coffee className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-xs uppercase tracking-wider">Good Afternoon Greeting</div>
+                      <div className={`text-[11px] ${subText}`}>Midday encouragement &amp; Psalm 23</div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => updateField('afternoonGreetingEnabled', !settings.afternoonGreetingEnabled)}
+                    id="toggle-afternoon-greeting-btn"
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition ${
+                      settings.afternoonGreetingEnabled
+                        ? 'bg-amber-600 text-white shadow-xs'
+                        : 'bg-stone-200 dark:bg-stone-700 text-stone-600 dark:text-stone-300'
+                    }`}
+                  >
+                    {settings.afternoonGreetingEnabled ? 'ON' : 'OFF'}
+                  </button>
+                </div>
+
+                {settings.afternoonGreetingEnabled && (
+                  <div className="pt-2 border-t border-stone-200/50 dark:border-stone-700/50 flex items-center justify-between text-xs animate-fadeIn">
+                    <span className="font-semibold text-stone-600 dark:text-stone-300 flex items-center space-x-1">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>Custom Afternoon Time:</span>
+                    </span>
+                    <input
+                      type="time"
+                      value={settings.afternoonGreetingTime}
+                      onChange={e => updateField('afternoonGreetingTime', e.target.value)}
+                      className="p-1.5 rounded-xl border bg-stone-100 dark:bg-stone-800 text-xs font-semibold text-stone-800 dark:text-stone-200 outline-none focus:ring-2 focus:ring-amber-500"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* 3. Good Evening */}
+              <div className={`p-4 rounded-2xl border ${cardInnerBg} space-y-3`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                      <Sunset className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-xs uppercase tracking-wider">Good Evening Greeting</div>
+                      <div className={`text-[11px] ${subText}`}>Evening meditation &amp; John 14:27</div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => updateField('eveningGreetingEnabled', !settings.eveningGreetingEnabled)}
+                    id="toggle-evening-greeting-btn"
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition ${
+                      settings.eveningGreetingEnabled
+                        ? 'bg-amber-600 text-white shadow-xs'
+                        : 'bg-stone-200 dark:bg-stone-700 text-stone-600 dark:text-stone-300'
+                    }`}
+                  >
+                    {settings.eveningGreetingEnabled ? 'ON' : 'OFF'}
+                  </button>
+                </div>
+
+                {settings.eveningGreetingEnabled && (
+                  <div className="pt-2 border-t border-stone-200/50 dark:border-stone-700/50 flex items-center justify-between text-xs animate-fadeIn">
+                    <span className="font-semibold text-stone-600 dark:text-stone-300 flex items-center space-x-1">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>Custom Evening Time:</span>
+                    </span>
+                    <input
+                      type="time"
+                      value={settings.eveningGreetingTime}
+                      onChange={e => updateField('eveningGreetingTime', e.target.value)}
+                      className="p-1.5 rounded-xl border bg-stone-100 dark:bg-stone-800 text-xs font-semibold text-stone-800 dark:text-stone-200 outline-none focus:ring-2 focus:ring-amber-500"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* 4. Good Night */}
+              <div className={`p-4 rounded-2xl border ${cardInnerBg} space-y-3`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                      <Moon className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-xs uppercase tracking-wider">Good Night Greeting</div>
+                      <div className={`text-[11px] ${subText}`}>Peaceful sleep &amp; Psalm 4:8</div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => updateField('nightGreetingEnabled', !settings.nightGreetingEnabled)}
+                    id="toggle-night-greeting-btn"
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition ${
+                      settings.nightGreetingEnabled
+                        ? 'bg-amber-600 text-white shadow-xs'
+                        : 'bg-stone-200 dark:bg-stone-700 text-stone-600 dark:text-stone-300'
+                    }`}
+                  >
+                    {settings.nightGreetingEnabled ? 'ON' : 'OFF'}
+                  </button>
+                </div>
+
+                {settings.nightGreetingEnabled && (
+                  <div className="pt-2 border-t border-stone-200/50 dark:border-stone-700/50 flex items-center justify-between text-xs animate-fadeIn">
+                    <span className="font-semibold text-stone-600 dark:text-stone-300 flex items-center space-x-1">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>Custom Night Time:</span>
+                    </span>
+                    <input
+                      type="time"
+                      value={settings.nightGreetingTime}
+                      onChange={e => updateField('nightGreetingTime', e.target.value)}
+                      className="p-1.5 rounded-xl border bg-stone-100 dark:bg-stone-800 text-xs font-semibold text-stone-800 dark:text-stone-200 outline-none focus:ring-2 focus:ring-amber-500"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: REMINDERS & SCHEDULES */}
           {activeSubTab === 'reminders' && (
             <div className="space-y-4">
               {/* 1. Daily Verse */}
@@ -515,7 +720,7 @@ export const VotdNotificationModal: React.FC<VotdNotificationModalProps> = ({
             </div>
           )}
 
-          {/* TAB 2: DEVELOPMENT & TESTING TOOLS */}
+          {/* TAB 3: DEVELOPMENT & TESTING TOOLS */}
           {activeSubTab === 'testing' && (
             <div className="space-y-4">
               <div className={`p-4 rounded-2xl border ${cardInnerBg} space-y-3`}>
@@ -527,7 +732,7 @@ export const VotdNotificationModal: React.FC<VotdNotificationModalProps> = ({
                 </div>
 
                 <p className={`text-xs leading-relaxed ${subText}`}>
-                  Test notifications immediately without having to wait for scheduled times.
+                  Test notifications immediately without waiting for scheduled times.
                   Verify system banners, sound, vibration, and deep-link navigation.
                 </p>
 
@@ -540,10 +745,14 @@ export const VotdNotificationModal: React.FC<VotdNotificationModalProps> = ({
                     onChange={e => setTestType(e.target.value as any)}
                     className="w-full p-2.5 rounded-xl border bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold outline-none focus:ring-2 focus:ring-amber-500"
                   >
-                    <option value="votd">Verse of the Day (Opens Home/VOTD)</option>
-                    <option value="devotional">Daily Devotional (Opens Devotional Tab)</option>
-                    <option value="plan">Reading Plan Reminder (Opens Plans Tab)</option>
-                    <option value="prayer">Prayer Reminder (Opens Prayer Tab)</option>
+                    <option value="morning">☀️ Good Morning Greeting</option>
+                    <option value="afternoon">☕ Good Afternoon Greeting</option>
+                    <option value="evening">🌅 Good Evening Greeting</option>
+                    <option value="night">🌙 Good Night Greeting</option>
+                    <option value="votd">📖 Verse of the Day</option>
+                    <option value="devotional">✝️ Daily Devotional</option>
+                    <option value="plan">📚 Reading Plan Reminder</option>
+                    <option value="prayer">🙏 Prayer Time Reminder</option>
                   </select>
                 </div>
 
@@ -575,7 +784,7 @@ export const VotdNotificationModal: React.FC<VotdNotificationModalProps> = ({
             </div>
           )}
 
-          {/* TAB 3: NATIVE ANDROID ARCHITECTURE */}
+          {/* TAB 4: NATIVE ANDROID ARCHITECTURE */}
           {activeSubTab === 'android' && (
             <div className="space-y-4">
               <div className={`p-4 rounded-2xl border ${cardInnerBg} space-y-3`}>
@@ -611,7 +820,7 @@ export const VotdNotificationModal: React.FC<VotdNotificationModalProps> = ({
                 <div className="space-y-1.5 text-xs">
                   <div className="font-bold text-stone-700 dark:text-stone-300">How Background Alarms Work:</div>
                   <ul className="space-y-1 text-[11px] text-stone-600 dark:text-stone-400 list-disc list-inside">
-                    <li><strong className="text-stone-800 dark:text-stone-200">WorkManager &amp; AlarmManager:</strong> Fires exact background reminders at your selected morning/evening hours, even when the Holy Bible+ app is completely closed.</li>
+                    <li><strong className="text-stone-800 dark:text-stone-200">WorkManager &amp; AlarmManager:</strong> Fires exact background reminders at your selected morning/afternoon/evening/night hours, even when the Holy Bible+ app is completely closed.</li>
                     <li><strong className="text-stone-800 dark:text-stone-200">Device Local Timezone:</strong> Times are scheduled in your phone's local time, adjusting automatically for Daylight Saving Time.</li>
                     <li><strong className="text-stone-800 dark:text-stone-200">Deep Link Navigation:</strong> Tapping the alert opens directly into the Verse of the Day, Devotional, or Reading Plan.</li>
                   </ul>

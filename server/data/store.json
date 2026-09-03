@@ -1,5 +1,23 @@
 {
   "users": {
+    "usr_admin_holybibleplus": {
+      "id": "usr_admin_holybibleplus",
+      "fullName": "Holy Bible+ Administrator",
+      "email": "admin@holybibleplus.app",
+      "passwordHash": "$2b$10$4WmGKdKDqWFgat/c5jNwOen3Nnsg5bieYJtSHsF3yY0rDw.0/qaqq",
+      "googleId": null,
+      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "profileImageType": "uploaded_photo",
+      "avatarId": null,
+      "avatarBgColor": null,
+      "authProvider": "local",
+      "role": "ADMIN",
+      "createdAt": "2026-08-15T12:00:00.000Z",
+      "updatedAt": "2026-09-03T15:00:00.000Z",
+      "lastLoginAt": "2026-09-03T15:00:00.000Z",
+      "lastActiveAt": "2026-09-03T15:00:00.000Z",
+      "isActive": true
+    },
     "usr_admin_b343411d2f30": {
       "id": "usr_admin_b343411d2f30",
       "fullName": "System Administrator",
@@ -11,8 +29,8 @@
       "role": "ADMIN",
       "createdAt": "2026-08-15T12:59:33.588Z",
       "updatedAt": "2026-08-15T12:59:33.588Z",
-      "lastLoginAt": "2026-08-15T13:02:28.774Z",
-      "lastActiveAt": "2026-08-15T13:10:12.602Z",
+      "lastLoginAt": "2026-09-03T15:39:47.742Z",
+      "lastActiveAt": "2026-09-03T15:39:47.742Z",
       "isActive": true
     },
     "usr_72f3bb6cbbc6f4ac": {
@@ -977,7 +995,28 @@
         "hymn-1",
         "hymn-3"
       ],
-      "updatedAt": "2026-08-15T13:12:12.288Z"
+      "updatedAt": "2026-09-03T15:39:49.552Z",
+      "notificationSettings": {
+        "morningGreetingEnabled": false,
+        "morningGreetingTime": "07:00",
+        "afternoonGreetingEnabled": false,
+        "afternoonGreetingTime": "13:00",
+        "eveningGreetingEnabled": false,
+        "eveningGreetingTime": "18:00",
+        "nightGreetingEnabled": false,
+        "nightGreetingTime": "21:00",
+        "dailyVerseEnabled": false,
+        "dailyVerseTime": "07:00",
+        "devotionalEnabled": false,
+        "devotionalTime": "08:00",
+        "readingPlanEnabled": false,
+        "readingPlanTime": "19:00",
+        "prayerReminderEnabled": false,
+        "prayerReminderTime": "21:00"
+      },
+      "audioSpeed": 1,
+      "selectedBibleId": "55212e3cf5d04d49-01",
+      "votdSelectedBg": ""
     }
   },
   "analyticsEvents": [
@@ -1134,10 +1173,68 @@
       "metadata": {
         "test": true
       }
+    },
+    {
+      "id": "evt_5888e68a9a99a392",
+      "userId": null,
+      "sessionId": "sess_huh8ql7fi_1788293681539",
+      "eventType": "app_open",
+      "timestamp": "2026-09-03T15:18:23.277Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_64074e730053a176",
+      "userId": null,
+      "sessionId": "sess_huh8ql7fi_1788293681539",
+      "eventType": "session_start",
+      "timestamp": "2026-09-03T15:18:23.279Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_74db4d3cb31ee485",
+      "userId": null,
+      "sessionId": "sess_huh8ql7fi_1788293681539",
+      "eventType": "app_open",
+      "timestamp": "2026-09-03T15:37:55.645Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_ea1c573d38a572ff",
+      "userId": null,
+      "sessionId": "sess_huh8ql7fi_1788293681539",
+      "eventType": "session_start",
+      "timestamp": "2026-09-03T15:37:55.650Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_83e297a21c70d783",
+      "userId": "usr_admin_b343411d2f30",
+      "sessionId": "sess_log_usr_admin_b343411d2f30",
+      "eventType": "login",
+      "timestamp": "2026-09-03T15:39:47.747Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_b7fc27c06df4d8ec",
+      "userId": null,
+      "sessionId": "sess_out",
+      "eventType": "logout",
+      "timestamp": "2026-09-03T15:40:13.045Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_b21b6c4896a2e07c",
+      "userId": null,
+      "sessionId": "sess_huh8ql7fi_1788293681539",
+      "eventType": "bible_opened",
+      "timestamp": "2026-09-03T15:41:30.751Z",
+      "metadata": {}
     }
   ],
   "meta": {
     "version": 1,
-    "lastUpdated": "2026-09-02T15:05:21.218Z"
+    "lastUpdated": "2026-09-03T15:53:02.047Z"
   }
 }

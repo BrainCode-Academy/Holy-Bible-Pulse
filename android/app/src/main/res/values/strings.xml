@@ -4,4 +4,10 @@
     <string name="title_activity_main">Holy Bible+</string>
     <string name="package_name">com.holybibleplus.app</string>
     <string name="custom_url_scheme">com.holybibleplus.app</string>
+
+    <!-- Google AdMob Configuration (Replace placeholders with your real production AdMob IDs) -->
+    <string name="admob_app_id">ca-app-pub-5887712962044536~8049296196</string>
+    <string name="admob_home_banner_id">ca-app-pub-5887712962044536/2794818716</string>
+    <string name="admob_search_banner_id">ca-app-pub-5887712962044536/1098593663</string>
+    <string name="admob_notes_banner_id">ca-app-pub-5887712962044536/2366453620</string>
 </resources>

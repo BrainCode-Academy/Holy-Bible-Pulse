@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { User } from '../types';
 
-export type TimePeriod = 'morning' | 'afternoon' | 'evening';
+export type TimePeriod = 'morning' | 'afternoon' | 'evening' | 'night';
 
 export interface DynamicGreetingInfo {
   period: TimePeriod;
-  greetingTitle: string;       // e.g. "Good Morning"
+  greetingTitle: string;       // e.g. "Good Morning", "Good Night"
   formattedGreeting: string;   // e.g. "Good Morning, Winner 👋" or "Good Morning 👋"
   subMessage: string;          // e.g. "Ready to spend time in God's Word today?"
   currentHour: number;
@@ -15,9 +15,10 @@ export interface DynamicGreetingInfo {
 
 /**
  * Calculates the greeting period based on device/browser local time:
- * 12:00 AM – 11:59 AM (0..11)  -> "Good Morning"
- * 12:00 PM – 5:59 PM  (12..17) -> "Good Afternoon"
- * 6:00 PM  – 11:59 PM (18..23) -> "Good Evening"
+ * 5:00 AM  – 11:59 AM (5..11)  -> "Good Morning"
+ * 12:00 PM –  4:59 PM (12..16) -> "Good Afternoon"
+ * 5:00 PM  –  8:59 PM (17..20) -> "Good Evening"
+ * 9:00 PM  –  4:59 AM (21..23, 0..4) -> "Good Night"
  */
 export function calculateGreetingPeriod(date: Date = new Date()): {
   period: TimePeriod;
@@ -26,23 +27,29 @@ export function calculateGreetingPeriod(date: Date = new Date()): {
 } {
   const hour = date.getHours();
 
-  if (hour >= 0 && hour < 12) {
+  if (hour >= 5 && hour < 12) {
     return {
       period: 'morning',
       title: 'Good Morning',
-      subMessage: 'Start your morning in the stillness of God\'s presence.',
+      subMessage: "Start your morning in the stillness of God's presence.",
     };
-  } else if (hour >= 12 && hour < 18) {
+  } else if (hour >= 12 && hour < 17) {
     return {
       period: 'afternoon',
       title: 'Good Afternoon',
       subMessage: 'Take a moment to pause, reflect, and recharge in Scripture.',
     };
-  } else {
+  } else if (hour >= 17 && hour < 21) {
     return {
       period: 'evening',
       title: 'Good Evening',
-      subMessage: 'End your day resting in God\'s promises and everlasting peace.',
+      subMessage: "Unwind your day meditating on God's goodness and grace.",
+    };
+  } else {
+    return {
+      period: 'night',
+      title: 'Good Night',
+      subMessage: "Rest peacefully tonight under the shadow of the Almighty's wings.",
     };
   }
 }

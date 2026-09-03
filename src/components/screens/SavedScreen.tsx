@@ -3,6 +3,7 @@ import { useBible } from '../../context/BibleContext';
 import { Note } from '../../types';
 import { PUBLIC_DOMAIN_HYMNS } from '../../data/hymnsData';
 import { DAILY_DEVOTIONALS } from '../../data/devotionalsData';
+import { AdBanner } from '../common/AdBanner';
 import {
   Bookmark as BookmarkIcon,
   Highlighter,
@@ -104,6 +105,9 @@ export const SavedScreen: React.FC<{
           </button>
         ))}
       </div>
+
+      {/* AdMob Banner for Saved Sanctuary */}
+      <AdBanner placement="saved" />
 
       {/* Header Tabs */}
       <div className={`p-4 rounded-3xl border ${cardBg} space-y-3`}>

@@ -5,7 +5,6 @@ import { audioService, AudioState } from '../../services/audioService';
 import { Chapter, Verse } from '../../types';
 import { ScriptureCopyright } from '../bible/ScriptureCopyright';
 import { BibleVersionSelectorModal } from '../modals/BibleVersionSelectorModal';
-import { AudioPlayerBar } from '../audio/AudioPlayerBar';
 import {
   ChevronLeft,
   ChevronRight,
@@ -20,11 +19,13 @@ import {
   ChevronDown,
   RefreshCw,
   Sparkles,
+  FileText,
 } from 'lucide-react';
 
 export const BibleReaderScreen: React.FC<{
   onOpenContextMenu: (verse: Verse) => void;
-}> = ({ onOpenContextMenu }) => {
+  onOpenMessageOutline?: (ref: string) => void;
+}> = ({ onOpenContextMenu, onOpenMessageOutline }) => {
   const {
     selectedBibleId,
     bibles,
@@ -483,7 +484,7 @@ export const BibleReaderScreen: React.FC<{
         ) : chapterData && chapterData.verses ? (
           <div className="space-y-6">
             {/* Chapter Header */}
-            <div className="text-center pb-4 border-b border-stone-200/60 dark:border-stone-800 space-y-1">
+            <div className="text-center pb-4 border-b border-stone-200/60 dark:border-stone-800 space-y-1.5">
               <div className="flex items-center justify-center space-x-2">
                 <h2 className="font-serif text-3xl font-bold tracking-tight">
                   {chapterData.chapter.reference}
@@ -495,9 +496,23 @@ export const BibleReaderScreen: React.FC<{
                   {activeBible.abbreviation}
                 </button>
               </div>
-              <p className="text-xs text-amber-700 dark:text-amber-400 font-medium">
-                Tap any verse to Highlight, Bookmark, or Add Note
-              </p>
+
+              <div className="flex items-center justify-center space-x-2 pt-0.5">
+                <p className="text-xs text-stone-500 dark:text-stone-400 font-medium">
+                  Tap any verse to Highlight, Bookmark, or Add Note
+                </p>
+                {onOpenMessageOutline && (
+                  <button
+                    onClick={() => onOpenMessageOutline(chapterData.chapter.reference)}
+                    id="reader-create-outline-btn"
+                    className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 text-[11px] font-bold transition"
+                    title="Generate sermon outline from this chapter"
+                  >
+                    <Sparkles className="w-3 h-3 text-amber-500" />
+                    <span>Create Outline</span>
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Verse List */}
@@ -627,9 +642,6 @@ export const BibleReaderScreen: React.FC<{
           </div>
         )}
       </main>
-
-      {/* Floating Audio Player Bar */}
-      <AudioPlayerBar onClose={() => audioService.stop()} />
 
       {/* Bible Version Selector Modal */}
       <BibleVersionSelectorModal

@@ -43,18 +43,18 @@ export function isNativeMobileApp(): boolean {
  *   or falls back to DEFAULT_API_BASE_URL.
  */
 export function getApiBaseUrl(): string {
-  // Web Browser Mode: ALWAYS use relative URLs ('') so requests route directly to the current host
-  // (/api/auth/login, /api/bibles, etc.) with zero CORS/redirect issues.
-  if (!isNativeMobileApp()) {
-    return '';
-  }
-
-  // Capacitor Native Mobile Mode (Android APK / iOS app):
   const envBaseUrl = import.meta.env.VITE_API_BASE_URL;
   if (envBaseUrl && typeof envBaseUrl === 'string' && envBaseUrl.trim()) {
     return envBaseUrl.trim().replace(/\/+$/, '');
   }
 
+  // Web Browser Mode: Default to relative URLs ('') so requests route directly to the current host
+  // (/api/auth/login, /api/bibles, etc.) with zero CORS issues on Vercel and Express fullstack.
+  if (!isNativeMobileApp()) {
+    return '';
+  }
+
+  // Capacitor Native Mobile Mode fallback (Android APK / iOS app):
   return DEFAULT_API_BASE_URL;
 }
 

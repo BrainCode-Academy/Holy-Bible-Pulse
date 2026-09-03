@@ -16,7 +16,12 @@ export class FirestoreDatabase {
     // 1. Prime cache immediately from local backup store
     this.loadFromLocalStore();
 
-    // 2. Initialize and sync from Firestore remote in background
+    // 2. Ensure admin account is seeded/synced immediately
+    this.ensureInitialAdmin().catch(err => {
+      console.warn('[FirestoreDatabase] Initial admin verification notice:', err);
+    });
+
+    // 3. Initialize and sync from Firestore remote in background
     this.initialize().catch(err => {
       console.warn('[FirestoreDatabase] Remote initialization notice:', err);
     });
@@ -47,6 +52,34 @@ export class FirestoreDatabase {
           this.analyticsEventsCache = parsed.analyticsEvents;
         }
         console.log(`[FirestoreDatabase] Loaded ${this.usersCache.size} users, ${this.userSyncCache.size} sync docs from persistent store.`);
+      }
+
+      // Synchronously guarantee admin account is present in cache
+      const adminEmail = (process.env.ADMIN_EMAIL || 'admin@holybibleplus.app').toLowerCase().trim();
+      const adminInitialPassword = process.env.ADMIN_INITIAL_PASSWORD || process.env.ADMIN_PASSWORD || 'HolyBiblePlusAdmin2026!';
+      const existingAdmin = this.findUserByEmail(adminEmail);
+      if (!existingAdmin) {
+        const adminId = 'usr_admin_holybibleplus';
+        const now = new Date().toISOString();
+        const initialAdmin: UserRecord = {
+          id: adminId,
+          fullName: 'Holy Bible+ Administrator',
+          email: adminEmail,
+          passwordHash: bcrypt.hashSync(adminInitialPassword, 10),
+          googleId: null,
+          avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+          profileImageType: 'uploaded_photo',
+          avatarId: null,
+          avatarBgColor: null,
+          authProvider: 'local',
+          role: 'ADMIN',
+          createdAt: now,
+          updatedAt: now,
+          lastLoginAt: null,
+          lastActiveAt: null,
+          isActive: true,
+        };
+        this.usersCache.set(adminId, initialAdmin);
       }
     } catch (err) {
       console.warn('[FirestoreDatabase] Note: Could not read local store.json:', err);
@@ -128,43 +161,70 @@ export class FirestoreDatabase {
     }
   }
 
-  private async ensureInitialAdmin() {
+  public async ensureInitialAdmin() {
     const adminEmail = (process.env.ADMIN_EMAIL || 'admin@holybibleplus.app').toLowerCase().trim();
-    const adminInitialPassword = process.env.ADMIN_INITIAL_PASSWORD || 'HolyBiblePlusAdmin2026!';
+    const adminInitialPassword = process.env.ADMIN_INITIAL_PASSWORD || process.env.ADMIN_PASSWORD || 'HolyBiblePlusAdmin2026!';
 
-    let hasAdmin = Array.from(this.usersCache.values()).some(u => u.role === 'ADMIN');
-    if (!hasAdmin) {
-      const existingUser = this.findUserByEmail(adminEmail);
-      if (existingUser) {
-        existingUser.role = 'ADMIN';
-        await firestoreClient.setDoc('users', existingUser.id, existingUser);
-        console.log(`[FirestoreDatabase] Upgraded existing user ${adminEmail} to ADMIN.`);
-      } else {
-        const salt = await bcrypt.genSalt(10);
-        const passwordHash = await bcrypt.hash(adminInitialPassword, salt);
-        const adminId = 'usr_admin_' + crypto.randomBytes(6).toString('hex');
-        const now = new Date().toISOString();
+    // Specifically find the main administrator user by configured admin email
+    let adminUser = this.findUserByEmail(adminEmail);
+    if (!adminUser) {
+      adminUser = await this.findUserByEmailAsync(adminEmail);
+    }
 
-        const adminUser: UserRecord = {
-          id: adminId,
-          fullName: 'System Administrator',
-          email: adminEmail,
-          passwordHash,
-          googleId: null,
-          avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-          authProvider: 'local',
-          role: 'ADMIN',
-          createdAt: now,
-          updatedAt: now,
-          lastLoginAt: null,
-          lastActiveAt: null,
-          isActive: true,
-        };
-
-        this.usersCache.set(adminId, adminUser);
-        await firestoreClient.setDoc('users', adminId, adminUser);
-        console.log(`[FirestoreDatabase] Seeded initial admin ${adminEmail} into Firestore.`);
+    if (adminUser) {
+      let shouldUpdate = false;
+      if (adminUser.role !== 'ADMIN') {
+        adminUser.role = 'ADMIN';
+        shouldUpdate = true;
       }
+      if (!adminUser.isActive) {
+        adminUser.isActive = true;
+        shouldUpdate = true;
+      }
+      // If no password hash exists or if validating against the configured admin password fails, reset/ensure valid hash
+      if (!adminUser.passwordHash || !(await bcrypt.compare(adminInitialPassword, adminUser.passwordHash))) {
+        const salt = await bcrypt.genSalt(10);
+        adminUser.passwordHash = await bcrypt.hash(adminInitialPassword, salt);
+        adminUser.updatedAt = new Date().toISOString();
+        shouldUpdate = true;
+      }
+
+      if (shouldUpdate) {
+        this.usersCache.set(adminUser.id, adminUser);
+        this.persistToLocalStore();
+        await firestoreClient.setDoc('users', adminUser.id, adminUser);
+        console.log(`[FirestoreDatabase] Synchronized administrator account ${adminEmail} (Role: ADMIN, Active: true).`);
+      }
+    } else {
+      // Create fresh primary administrator account
+      const salt = await bcrypt.genSalt(10);
+      const passwordHash = await bcrypt.hash(adminInitialPassword, salt);
+      const adminId = 'usr_admin_' + crypto.randomBytes(6).toString('hex');
+      const now = new Date().toISOString();
+
+      const newAdmin: UserRecord = {
+        id: adminId,
+        fullName: 'Holy Bible+ Administrator',
+        email: adminEmail,
+        passwordHash,
+        googleId: null,
+        avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+        profileImageType: 'uploaded_photo',
+        avatarId: null,
+        avatarBgColor: null,
+        authProvider: 'local',
+        role: 'ADMIN',
+        createdAt: now,
+        updatedAt: now,
+        lastLoginAt: null,
+        lastActiveAt: null,
+        isActive: true,
+      };
+
+      this.usersCache.set(adminId, newAdmin);
+      this.persistToLocalStore();
+      await firestoreClient.setDoc('users', adminId, newAdmin);
+      console.log(`[FirestoreDatabase] Created and seeded primary administrator account ${adminEmail} into database.`);
     }
   }
 

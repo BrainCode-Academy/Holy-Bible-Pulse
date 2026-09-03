@@ -40,8 +40,8 @@ export const NavigationHeader: React.FC<{
             referrerPolicy="no-referrer"
           />
           <div>
-            <span className="font-serif font-bold text-lg tracking-tight flex items-center gap-1">
-              Holy Bible<span className="text-amber-600 font-sans text-xs font-black uppercase px-1.2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800">PLUS</span>
+            <span className="font-serif font-bold text-lg tracking-tight flex items-center">
+              Holy Bible<span className="text-amber-600 dark:text-amber-400 font-sans text-base font-extrabold ml-0.5">+</span>
             </span>
           </div>
         </div>

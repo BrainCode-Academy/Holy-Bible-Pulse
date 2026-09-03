@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { audioService, AudioState } from '../../services/audioService';
-import { Play, Pause, Square, SkipBack, SkipForward, Volume2, X, Gauge, AlertCircle } from 'lucide-react';
+import {
+  Play,
+  Pause,
+  Square,
+  SkipBack,
+  SkipForward,
+  Volume2,
+  X,
+  Gauge,
+  AlertCircle,
+  ExternalLink,
+  ChevronUp,
+  ChevronDown,
+} from 'lucide-react';
 
 export const AudioPlayerBar: React.FC<{
   onClose: () => void;
-}> = ({ onClose }) => {
+  onNavigateToReader?: () => void;
+}> = ({ onClose, onNavigateToReader }) => {
   const [state, setState] = useState<AudioState>(audioService.getState());
   const [showSpeedMenu, setShowSpeedMenu] = useState<boolean>(false);
+  const [isMinimized, setIsMinimized] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscribe = audioService.subscribe(s => setState(s));
@@ -34,22 +49,60 @@ export const AudioPlayerBar: React.FC<{
     onClose();
   };
 
+  // Minimized floating pill mode
+  if (isMinimized) {
+    return (
+      <div className="fixed bottom-20 right-4 z-40 animate-slideUp">
+        <div className="flex items-center space-x-2 p-2 rounded-full bg-stone-900/95 text-stone-100 border border-amber-500/40 shadow-2xl backdrop-blur-md">
+          <button
+            onClick={() => onNavigateToReader?.()}
+            className="flex items-center space-x-1.5 pl-2 pr-1 text-xs font-serif font-bold text-amber-300 hover:underline max-w-[120px] truncate"
+            title="Open in Scripture Reader"
+          >
+            <Volume2 className="w-4 h-4 text-amber-400 animate-pulse shrink-0" />
+            <span className="truncate">{state.chapterReference || 'Audio Playing'}</span>
+          </button>
+
+          <button
+            onClick={handleTogglePlayPause}
+            className="p-2 rounded-full bg-amber-500 text-stone-950 font-bold hover:bg-amber-400 transition"
+          >
+            {state.isPaused ? <Play className="w-3.5 h-3.5 fill-stone-950" /> : <Pause className="w-3.5 h-3.5 fill-stone-950" />}
+          </button>
+
+          <button
+            onClick={() => setIsMinimized(false)}
+            className="p-1.5 rounded-full hover:bg-stone-800 text-stone-400 hover:text-stone-200 transition"
+            title="Expand Player"
+          >
+            <ChevronUp className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="fixed bottom-20 left-1/2 -translate-x-1/2 w-[94%] max-w-lg z-30 animate-slideUp">
+    <div className="fixed bottom-20 left-1/2 -translate-x-1/2 w-[94%] max-w-lg z-40 animate-slideUp">
       <div className="p-3.5 sm:p-4 rounded-3xl bg-stone-900/95 dark:bg-stone-900/95 backdrop-blur-md text-stone-100 border border-stone-800 shadow-2xl space-y-2.5">
-        {/* Top Meta Line: Chapter + Verse + Language Warning + Close */}
+        {/* Top Meta Line: Chapter + Verse + Controls */}
         <div className="flex items-center justify-between text-xs px-1">
-          <div className="flex items-center space-x-2 min-w-0">
-            <div className="p-1.5 rounded-xl bg-amber-500/20 text-amber-400 shrink-0">
+          <button
+            onClick={() => onNavigateToReader?.()}
+            className="flex items-center space-x-2 min-w-0 text-left hover:opacity-90 transition group"
+            title="Click to view chapter in Scripture Reader"
+          >
+            <div className="p-1.5 rounded-xl bg-amber-500/20 text-amber-400 shrink-0 group-hover:scale-105 transition">
               <Volume2 className="w-4 h-4 animate-pulse" />
             </div>
             <div className="min-w-0">
-              <div className="font-serif font-bold text-sm leading-tight text-amber-300 truncate">
-                {state.chapterReference}
+              <div className="font-serif font-bold text-sm leading-tight text-amber-300 truncate flex items-center space-x-1">
+                <span>{state.chapterReference}</span>
+                <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition text-amber-400" />
               </div>
               <div className="text-[11px] text-stone-400 font-sans truncate">
                 {state.currentVerse
-                  ? `Reading Verse ${state.currentVerse.number} of ${state.totalVerses}`
+                  ? `Verse ${state.currentVerse.number} of ${state.totalVerses}`
                   : 'Text-to-Speech active'}
                 {!state.isLanguageSupported && (
                   <span className="ml-1.5 text-amber-400/90 text-[10px]">
@@ -58,9 +111,9 @@ export const AudioPlayerBar: React.FC<{
                 )}
               </div>
             </div>
-          </div>
+          </button>
 
-          <div className="flex items-center space-x-2 shrink-0">
+          <div className="flex items-center space-x-1.5 shrink-0">
             {/* Speed Pill Toggle */}
             <div className="relative">
               <button
@@ -74,7 +127,7 @@ export const AudioPlayerBar: React.FC<{
               </button>
 
               {showSpeedMenu && (
-                <div className="absolute right-0 bottom-8 bg-stone-900 border border-stone-800 rounded-2xl p-1.5 shadow-xl flex flex-col space-y-1 z-40 min-w-[70px]">
+                <div className="absolute right-0 bottom-8 bg-stone-900 border border-stone-800 rounded-2xl p-1.5 shadow-xl flex flex-col space-y-1 z-50 min-w-[70px]">
                   {speeds.map(sp => (
                     <button
                       key={sp}
@@ -96,6 +149,17 @@ export const AudioPlayerBar: React.FC<{
               )}
             </div>
 
+            {/* Minimize Pill */}
+            <button
+              onClick={() => setIsMinimized(true)}
+              id="audio-minimize-btn"
+              className="p-1 rounded-full hover:bg-stone-800 text-stone-400 hover:text-stone-200 transition"
+              title="Minimize Player"
+            >
+              <ChevronDown className="w-4 h-4" />
+            </button>
+
+            {/* Stop / Close */}
             <button
               onClick={handleStop}
               id="audio-close-btn"

@@ -3,23 +3,37 @@ import { getDeterministicDailyVerse } from '../data/dailyVerses';
 import { scheduleNativeAndroidNotification } from './androidNotificationBridge';
 
 export interface AppNotificationSettings {
-  // 1. Daily Verse
+  // 1. Greeting Reminders
+  morningGreetingEnabled: boolean;
+  morningGreetingTime: string; // e.g. "07:00"
+  afternoonGreetingEnabled: boolean;
+  afternoonGreetingTime: string; // e.g. "13:00"
+  eveningGreetingEnabled: boolean;
+  eveningGreetingTime: string; // e.g. "18:00"
+  nightGreetingEnabled: boolean;
+  nightGreetingTime: string; // e.g. "21:00"
+
+  // 2. Daily Verse
   dailyVerseEnabled: boolean;
   dailyVerseTime: string; // "HH:mm", e.g. "07:00"
 
-  // 2. Daily Devotional
+  // 3. Daily Devotional
   devotionalEnabled: boolean;
   devotionalTime: string; // "HH:mm", e.g. "08:00"
 
-  // 3. Reading Plan Reminder
+  // 4. Reading Plan Reminder
   readingPlanEnabled: boolean;
   readingPlanTime: string; // "HH:mm", e.g. "19:00"
 
-  // 4. Prayer Reminder
+  // 5. Prayer Reminder
   prayerReminderEnabled: boolean;
   prayerReminderTime: string; // "HH:mm", e.g. "21:00"
 
   // Tracking last triggered calendar dates (YYYY-MM-DD)
+  lastNotifiedMorningGreetingDate?: string;
+  lastNotifiedAfternoonGreetingDate?: string;
+  lastNotifiedEveningGreetingDate?: string;
+  lastNotifiedNightGreetingDate?: string;
   lastNotifiedVotdDate?: string;
   lastNotifiedDevotionalDate?: string;
   lastNotifiedPlanDate?: string;
@@ -37,6 +51,14 @@ const STORAGE_KEY = 'hb_app_notification_settings';
 const LEGACY_STORAGE_KEY = 'hb_votd_notification_settings';
 
 export const DEFAULT_NOTIFICATION_SETTINGS: AppNotificationSettings = {
+  morningGreetingEnabled: false,
+  morningGreetingTime: '07:00',
+  afternoonGreetingEnabled: false,
+  afternoonGreetingTime: '13:00',
+  eveningGreetingEnabled: false,
+  eveningGreetingTime: '18:00',
+  nightGreetingEnabled: false,
+  nightGreetingTime: '21:00',
   dailyVerseEnabled: false,
   dailyVerseTime: '07:00',
   devotionalEnabled: false,
@@ -307,6 +329,62 @@ export async function sendReadingPlanNotification(planTitle?: string, dayNumber?
 }
 
 /**
+ * Sends Morning Greeting Notification
+ */
+export async function sendMorningGreetingNotification(): Promise<boolean> {
+  const title = 'Good Morning ☀️';
+  const body = 'Start your morning in the stillness of God\'s presence. "The Lord’s lovingkindnesses indeed never cease, for His compassions never fail. They are new every morning." — Lamentations 3:22-23';
+
+  return showSystemNotification(title, {
+    body,
+    tag: 'hb_morning_greeting',
+    tab: 'home',
+  });
+}
+
+/**
+ * Sends Afternoon Greeting Notification
+ */
+export async function sendAfternoonGreetingNotification(): Promise<boolean> {
+  const title = 'Good Afternoon ☕';
+  const body = 'Take a moment to pause and recharge. "The Lord is my shepherd; I shall not want. He makes me lie down in green pastures." — Psalm 23:1-2';
+
+  return showSystemNotification(title, {
+    body,
+    tag: 'hb_afternoon_greeting',
+    tab: 'home',
+  });
+}
+
+/**
+ * Sends Evening Greeting Notification
+ */
+export async function sendEveningGreetingNotification(): Promise<boolean> {
+  const title = 'Good Evening 🌅';
+  const body = 'Unwind and meditate on God’s faithfulness today. "Peace I leave with you; my peace I give to you." — John 14:27';
+
+  return showSystemNotification(title, {
+    body,
+    tag: 'hb_evening_greeting',
+    tab: 'home',
+  });
+}
+
+/**
+ * Sends Night Greeting Notification
+ */
+export async function sendNightGreetingNotification(): Promise<boolean> {
+  const title = 'Good Night 🌙';
+  const body = 'Rest peacefully tonight. "In peace I will both lie down and sleep, for you alone, O Lord, make me dwell in safety." — Psalm 4:8';
+
+  return showSystemNotification(title, {
+    body,
+    tag: 'hb_night_greeting',
+    tab: 'home',
+  });
+}
+
+/**
  * Sends Prayer Reminder Notification
  */
 export async function sendPrayerReminderNotification(): Promise<boolean> {
@@ -362,15 +440,111 @@ function scheduleSingleNotification(
 }
 
 /**
- * Master scheduler: schedules all active notifications (Daily Verse, Devotional, Plan, Prayer)
- * and bridges to native Android WorkManager/AlarmManager when running in Android APK/WebView.
+ * Master scheduler: schedules all active notifications (Greetings, Daily Verse, Devotional, Plan, Prayer)
+ * and bridges to native Android WorkManager/AlarmManager/Capacitor when running in Android APK.
  */
 export function scheduleAllNotifications(): void {
   if (typeof window === 'undefined') return;
 
   const settings = getNotificationSettings();
 
-  // 1. Daily Verse
+  // 1. Morning Greeting
+  if (settings.morningGreetingEnabled) {
+    const [h, m] = settings.morningGreetingTime.split(':').map(Number);
+    scheduleSingleNotification(
+      'morning_greeting',
+      settings.morningGreetingTime,
+      () => sendMorningGreetingNotification(),
+      (dateStr) => {
+        saveNotificationSettings({ ...getNotificationSettings(), lastNotifiedMorningGreetingDate: dateStr });
+      }
+    );
+    scheduleNativeAndroidNotification({
+      id: 'hb_morning_greeting',
+      type: 'morning_greeting',
+      hour: h,
+      minute: m,
+      title: 'Good Morning ☀️',
+      body: 'Start your morning in the stillness of God\'s presence.',
+      deepLinkTab: 'home',
+    });
+  } else {
+    clearTimer('morning_greeting');
+  }
+
+  // 2. Afternoon Greeting
+  if (settings.afternoonGreetingEnabled) {
+    const [h, m] = settings.afternoonGreetingTime.split(':').map(Number);
+    scheduleSingleNotification(
+      'afternoon_greeting',
+      settings.afternoonGreetingTime,
+      () => sendAfternoonGreetingNotification(),
+      (dateStr) => {
+        saveNotificationSettings({ ...getNotificationSettings(), lastNotifiedAfternoonGreetingDate: dateStr });
+      }
+    );
+    scheduleNativeAndroidNotification({
+      id: 'hb_afternoon_greeting',
+      type: 'afternoon_greeting',
+      hour: h,
+      minute: m,
+      title: 'Good Afternoon ☕',
+      body: 'Take a moment to pause and recharge in God\'s Word.',
+      deepLinkTab: 'home',
+    });
+  } else {
+    clearTimer('afternoon_greeting');
+  }
+
+  // 3. Evening Greeting
+  if (settings.eveningGreetingEnabled) {
+    const [h, m] = settings.eveningGreetingTime.split(':').map(Number);
+    scheduleSingleNotification(
+      'evening_greeting',
+      settings.eveningGreetingTime,
+      () => sendEveningGreetingNotification(),
+      (dateStr) => {
+        saveNotificationSettings({ ...getNotificationSettings(), lastNotifiedEveningGreetingDate: dateStr });
+      }
+    );
+    scheduleNativeAndroidNotification({
+      id: 'hb_evening_greeting',
+      type: 'evening_greeting',
+      hour: h,
+      minute: m,
+      title: 'Good Evening 🌅',
+      body: 'Unwind and meditate on God’s goodness today.',
+      deepLinkTab: 'home',
+    });
+  } else {
+    clearTimer('evening_greeting');
+  }
+
+  // 4. Night Greeting
+  if (settings.nightGreetingEnabled) {
+    const [h, m] = settings.nightGreetingTime.split(':').map(Number);
+    scheduleSingleNotification(
+      'night_greeting',
+      settings.nightGreetingTime,
+      () => sendNightGreetingNotification(),
+      (dateStr) => {
+        saveNotificationSettings({ ...getNotificationSettings(), lastNotifiedNightGreetingDate: dateStr });
+      }
+    );
+    scheduleNativeAndroidNotification({
+      id: 'hb_night_greeting',
+      type: 'night_greeting',
+      hour: h,
+      minute: m,
+      title: 'Good Night 🌙',
+      body: 'Rest peacefully tonight under the shadow of the Almighty.',
+      deepLinkTab: 'home',
+    });
+  } else {
+    clearTimer('night_greeting');
+  }
+
+  // 5. Daily Verse
   if (settings.dailyVerseEnabled) {
     const verse = getDeterministicDailyVerse(new Date());
     const [h, m] = settings.dailyVerseTime.split(':').map(Number);
@@ -384,7 +558,6 @@ export function scheduleAllNotifications(): void {
       }
     );
 
-    // Forward to Native Android bridge
     scheduleNativeAndroidNotification({
       id: 'hb_votd_daily',
       type: 'votd',
@@ -398,7 +571,7 @@ export function scheduleAllNotifications(): void {
     clearTimer('votd');
   }
 
-  // 2. Daily Devotional
+  // 6. Daily Devotional
   if (settings.devotionalEnabled) {
     const [h, m] = settings.devotionalTime.split(':').map(Number);
 
@@ -424,7 +597,7 @@ export function scheduleAllNotifications(): void {
     clearTimer('devotional');
   }
 
-  // 3. Reading Plan
+  // 7. Reading Plan
   if (settings.readingPlanEnabled) {
     const [h, m] = settings.readingPlanTime.split(':').map(Number);
 
@@ -450,7 +623,7 @@ export function scheduleAllNotifications(): void {
     clearTimer('plan');
   }
 
-  // 4. Prayer Reminder
+  // 8. Prayer Reminder
   if (settings.prayerReminderEnabled) {
     const [h, m] = settings.prayerReminderTime.split(':').map(Number);
 
