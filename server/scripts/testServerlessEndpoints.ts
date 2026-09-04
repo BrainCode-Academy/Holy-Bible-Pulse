@@ -91,6 +91,7 @@ async function runEndpointTests() {
 
   server.close();
   console.log('--- ALL SERVERLESS ENDPOINTS VERIFIED SUCCESSFULLY ---');
+  process.exit(0);
 }
 
 runEndpointTests().catch(err => {

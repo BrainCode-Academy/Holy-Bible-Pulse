@@ -22,6 +22,7 @@ import {
   Sun,
   Moon,
   Coffee,
+  Laptop,
   CheckCircle2,
   RefreshCw,
   ChevronRight,
@@ -348,19 +349,21 @@ export const MeScreen: React.FC = () => {
         {/* Theme Mode */}
         <div className="space-y-1.5">
           <span className="text-xs font-semibold text-stone-500">Theme Mode:</span>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {[
+              { id: 'system', label: 'System', icon: <Laptop className="w-4 h-4" /> },
               { id: 'light', label: 'Light', icon: <Sun className="w-4 h-4" /> },
               { id: 'sepia', label: 'Sepia', icon: <Coffee className="w-4 h-4" /> },
               { id: 'dark', label: 'Dark', icon: <Moon className="w-4 h-4" /> },
             ].map((t) => (
               <button
                 key={t.id}
+                id={`theme-mode-btn-${t.id}`}
                 onClick={() => updateSettings({ themeMode: t.id as any })}
                 className={`flex items-center justify-center space-x-1.5 py-2.5 px-3 rounded-2xl border text-xs font-semibold transition ${
                   readerSettings.themeMode === t.id
                     ? 'bg-amber-700 text-white border-amber-700 shadow-sm'
-                    : 'bg-stone-50 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border-stone-200 dark:border-stone-700'
+                    : 'bg-stone-50 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border-stone-200 dark:border-stone-700 hover:border-amber-500'
                 }`}
               >
                 {t.icon}

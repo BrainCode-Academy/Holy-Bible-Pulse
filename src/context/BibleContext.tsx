@@ -126,7 +126,7 @@ export interface BibleContextType {
 const DEFAULT_SETTINGS: ReaderSettings = {
   fontSize: 18,
   fontFamily: 'serif',
-  themeMode: 'light',
+  themeMode: 'system',
   lineSpacing: 'comfortable',
   showVerseNumbers: true,
   redLetter: true,

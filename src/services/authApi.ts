@@ -247,6 +247,25 @@ export async function removeAvatarImage(): Promise<{ user: User; message: string
   };
 }
 
+// 5.4 Migrate Legacy Base64 Avatar to Firebase Storage
+export async function migrateAvatarToStorage(): Promise<{ user: User; message: string; migrated: boolean }> {
+  const res = await fetch(apiUrl('/api/auth/profile/avatar/migrate'), {
+    method: 'POST',
+    headers: getAuthHeaders(),
+  });
+
+  const json = await res.json();
+  if (!res.ok) {
+    throw new Error(json.error || 'Failed to migrate avatar.');
+  }
+
+  return {
+    user: json.user,
+    message: json.message || 'Avatar migration completed.',
+    migrated: Boolean(json.migrated),
+  };
+}
+
 // 6. Request Password Reset
 export async function requestPasswordReset(email: string): Promise<{ message: string; resetToken?: string }> {
   const res = await fetch(apiUrl('/api/auth/forgot-password'), {

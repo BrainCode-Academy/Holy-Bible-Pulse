@@ -12,6 +12,7 @@ import {
   Sun,
   Moon,
   Coffee,
+  Laptop,
   Bookmark,
   Volume2,
   VolumeX,
@@ -104,7 +105,12 @@ export const BibleReaderScreen: React.FC<{
   }, [selectedBibleId, currentChapterId]);
 
   // Theme configuration
-  const isDark = readerSettings.themeMode === 'dark';
+  const isDark =
+    readerSettings.themeMode === 'dark' ||
+    (readerSettings.themeMode === 'system' &&
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches);
   const isSepia = readerSettings.themeMode === 'sepia';
 
   const containerBg = isDark
@@ -345,19 +351,21 @@ export const BibleReaderScreen: React.FC<{
               {/* Theme Mode Selector */}
               <div className="flex items-center justify-between">
                 <span className="font-semibold text-stone-500">Reading Theme:</span>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1 sm:space-x-2">
                   {[
+                    { id: 'system', label: 'Auto', icon: <Laptop className="w-3.5 h-3.5" /> },
                     { id: 'light', label: 'Light', icon: <Sun className="w-3.5 h-3.5" /> },
                     { id: 'sepia', label: 'Sepia', icon: <Coffee className="w-3.5 h-3.5" /> },
                     { id: 'dark', label: 'Dark', icon: <Moon className="w-3.5 h-3.5" /> },
                   ].map(t => (
                     <button
                       key={t.id}
+                      id={`reader-theme-btn-${t.id}`}
                       onClick={() => updateSettings({ themeMode: t.id as any })}
-                      className={`flex items-center space-x-1 px-3 py-1.5 rounded-xl border font-semibold transition ${
+                      className={`flex items-center space-x-1 px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition ${
                         readerSettings.themeMode === t.id
                           ? 'bg-amber-600 text-white border-amber-600'
-                          : 'bg-white dark:bg-stone-800 text-stone-700 dark:text-stone-300'
+                          : 'bg-white dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:border-amber-500'
                       }`}
                     >
                       {t.icon}

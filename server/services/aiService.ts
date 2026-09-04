@@ -202,27 +202,30 @@ You MUST return ONLY valid JSON matching this exact structure:
 
         const modelName = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
         let response;
+        const callGemini = async (model: string) => {
+          return client.models.generateContent({
+            model,
+            contents: prompt,
+            config: {
+              systemInstruction: 'You are an evangelical Bible scholar and homiletics instructor. Return pure, valid JSON with no markdown backticks, explanations, or extra commentary.',
+              temperature: 0.7,
+              responseMimeType: 'application/json',
+            },
+          });
+        };
+
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('AI generation timeout')), 7000)
+        );
+
         try {
-          response = await client.models.generateContent({
-            model: modelName,
-            contents: prompt,
-            config: {
-              systemInstruction: 'You are an evangelical Bible scholar and homiletics instructor. Return pure, valid JSON with no markdown backticks, explanations, or extra commentary.',
-              temperature: 0.7,
-              responseMimeType: 'application/json',
-            },
-          });
+          response = (await Promise.race([callGemini(modelName), timeoutPromise])) as any;
         } catch (modelErr: any) {
-          // If default model is unavailable, try gemini-3.7-flash or gemini-2.5-flash
-          response = await client.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: prompt,
-            config: {
-              systemInstruction: 'You are an evangelical Bible scholar and homiletics instructor. Return pure, valid JSON with no markdown backticks, explanations, or extra commentary.',
-              temperature: 0.7,
-              responseMimeType: 'application/json',
-            },
-          });
+          try {
+            response = (await Promise.race([callGemini('gemini-2.5-flash'), timeoutPromise])) as any;
+          } catch (fallbackErr) {
+            throw new Error('Gemini models unavailable');
+          }
         }
 
         const rawText = response.text || '';

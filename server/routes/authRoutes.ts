@@ -316,18 +316,20 @@ router.post('/profile/avatar', authenticateToken, async (req: AuthRequest, res) 
       });
     }
 
-    // Save image to dedicated storage provider
+    // Save image to dedicated Firebase Cloud Storage provider
     const saved = await storageService.saveImage(req.user.id, buffer, mimeType);
 
-    // If user already had a previous local avatar, delete it to keep storage tidy
-    if (req.user.avatarUrl && req.user.avatarUrl.startsWith('/api/uploads/avatars/')) {
-      const oldFilename = req.user.avatarUrl.replace('/api/uploads/avatars/', '');
-      storageService.deleteImage(oldFilename).catch(() => {});
+    // If user already had a previous avatar, delete it to keep storage tidy
+    if (req.user.avatarStoragePath) {
+      storageService.deleteImage(req.user.avatarStoragePath).catch(() => {});
+    } else if (req.user.avatarUrl) {
+      storageService.deleteImage(req.user.avatarUrl).catch(() => {});
     }
 
-    // Associate new image URL with user's persistent record
+    // Associate new persistent Firebase Cloud Storage URL and path with user's record
     const updatedUser = await db.updateUser(req.user.id, {
       avatarUrl: saved.url,
+      avatarStoragePath: saved.storagePath,
       profileImageType: 'uploaded_photo',
       avatarId: null,
       avatarBgColor: null,
@@ -340,6 +342,7 @@ router.post('/profile/avatar', authenticateToken, async (req: AuthRequest, res) 
     return res.json({
       message: 'Profile picture saved.',
       avatarUrl: saved.url,
+      avatarStoragePath: saved.storagePath,
       user: db.sanitizeUser(updatedUser),
     });
   } catch (err: any) {
@@ -360,14 +363,16 @@ router.post('/profile/avatar-choice', authenticateToken, async (req: AuthRequest
       return res.status(400).json({ error: 'Please choose a valid avatar.' });
     }
 
-    // If user had a previous local disk avatar, clean it up
-    if (req.user.avatarUrl && req.user.avatarUrl.startsWith('/api/uploads/avatars/')) {
-      const oldFilename = req.user.avatarUrl.replace('/api/uploads/avatars/', '');
-      storageService.deleteImage(oldFilename).catch(() => {});
+    // If user had a previous avatar in storage, clean it up
+    if (req.user.avatarStoragePath) {
+      storageService.deleteImage(req.user.avatarStoragePath).catch(() => {});
+    } else if (req.user.avatarUrl) {
+      storageService.deleteImage(req.user.avatarUrl).catch(() => {});
     }
 
     const updatedUser = await db.updateUser(req.user.id, {
       avatarUrl: null,
+      avatarStoragePath: null,
       profileImageType: 'avatar',
       avatarId: avatarId.trim(),
       avatarBgColor: avatarBgColor ? String(avatarBgColor).trim() : null,
@@ -394,13 +399,15 @@ router.delete('/profile/avatar', authenticateToken, async (req: AuthRequest, res
       return res.status(401).json({ error: 'Not authenticated' });
     }
 
-    if (req.user.avatarUrl && req.user.avatarUrl.startsWith('/api/uploads/avatars/')) {
-      const filename = req.user.avatarUrl.replace('/api/uploads/avatars/', '');
-      storageService.deleteImage(filename).catch(() => {});
+    if (req.user.avatarStoragePath) {
+      storageService.deleteImage(req.user.avatarStoragePath).catch(() => {});
+    } else if (req.user.avatarUrl) {
+      storageService.deleteImage(req.user.avatarUrl).catch(() => {});
     }
 
     const updatedUser = await db.updateUser(req.user.id, {
       avatarUrl: null,
+      avatarStoragePath: null,
       profileImageType: 'default',
       avatarId: null,
       avatarBgColor: null,
@@ -416,6 +423,40 @@ router.delete('/profile/avatar', authenticateToken, async (req: AuthRequest, res
     });
   } catch (err: any) {
     return res.status(500).json({ error: 'Unable to remove profile picture. Please try again.' });
+  }
+});
+
+// 5.4 POST /api/auth/profile/avatar/migrate (Migrate legacy base64 avatar to Firebase Storage)
+router.post('/profile/avatar/migrate', authenticateToken, async (req: AuthRequest, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+
+    const migration = await storageService.migrateLegacyAvatar(req.user.id);
+    if (migration.migrated && migration.avatarUrl) {
+      const updatedUser = await db.updateUser(req.user.id, {
+        avatarUrl: migration.avatarUrl,
+        avatarStoragePath: migration.storagePath || null,
+        profileImageType: 'uploaded_photo',
+      });
+
+      return res.json({
+        message: 'Avatar successfully migrated to Firebase Storage.',
+        migrated: true,
+        avatarUrl: migration.avatarUrl,
+        user: updatedUser ? db.sanitizeUser(updatedUser) : req.user,
+      });
+    }
+
+    return res.json({
+      message: 'No legacy avatar required migration.',
+      migrated: false,
+      user: db.sanitizeUser(req.user),
+    });
+  } catch (err: any) {
+    console.error('Avatar migration error:', err);
+    return res.status(500).json({ error: 'Failed to migrate legacy avatar.' });
   }
 });
 

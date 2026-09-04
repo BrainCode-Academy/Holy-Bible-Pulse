@@ -9,6 +9,7 @@ export interface UserRecord {
   passwordHash: string | null;
   googleId: string | null;
   avatarUrl: string | null;
+  avatarStoragePath?: string | null;
   profileImageType?: ProfileImageType;
   avatarId?: string | null;
   avatarBgColor?: string | null;

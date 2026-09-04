@@ -120,8 +120,36 @@ const MainAppContent: React.FC = () => {
     setOutlineModalOpen(true);
   };
 
-  const isDark = readerSettings.themeMode === 'dark';
+  const [systemIsDark, setSystemIsDark] = useState<boolean>(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (e: MediaQueryListEvent) => {
+      setSystemIsDark(e.matches);
+    };
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  const isDark =
+    readerSettings.themeMode === 'dark' ||
+    (readerSettings.themeMode === 'system' && systemIsDark);
   const isSepia = readerSettings.themeMode === 'sepia';
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark]);
 
   const bodyBgClass = isDark
     ? 'bg-stone-950 text-stone-100 min-h-screen'

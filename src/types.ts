@@ -1,4 +1,4 @@
-export type ReaderThemeMode = 'light' | 'dark' | 'sepia';
+export type ReaderThemeMode = 'system' | 'light' | 'dark' | 'sepia';
 export type ReaderFontFamily = 'serif' | 'sans' | 'mono';
 export type ReaderLineSpacing = 'comfortable' | 'compact' | 'spacious';
 
@@ -210,6 +210,7 @@ export interface User {
   fullName: string;
   email: string;
   avatarUrl?: string | null;
+  avatarStoragePath?: string | null;
   profileImageType?: ProfileImageType;
   avatarId?: string | null;
   avatarBgColor?: string | null;
@@ -251,6 +252,7 @@ export interface AdminUserListItem {
   fullName: string;
   email: string;
   avatarUrl?: string | null;
+  avatarStoragePath?: string | null;
   profileImageType?: ProfileImageType;
   avatarId?: string | null;
   avatarBgColor?: string | null;
