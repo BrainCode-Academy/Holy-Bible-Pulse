@@ -14,7 +14,8 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // 1. POST /api/auth/register
 router.post('/register', async (req, res) => {
   try {
-    const { fullName, email, password, confirmPassword } = req.body;
+    const { email, password, confirmPassword } = req.body;
+    const fullName = req.body.fullName || req.body.name || req.body.displayName;
 
     if (!fullName || typeof fullName !== 'string' || !fullName.trim()) {
       return res.status(400).json({ error: 'Please enter your full name.' });

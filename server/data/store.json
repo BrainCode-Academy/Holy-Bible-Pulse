@@ -14,8 +14,8 @@
       "role": "ADMIN",
       "createdAt": "2026-08-15T12:00:00.000Z",
       "updatedAt": "2026-09-03T15:00:00.000Z",
-      "lastLoginAt": "2026-09-03T15:00:00.000Z",
-      "lastActiveAt": "2026-09-03T15:00:00.000Z",
+      "lastLoginAt": "2026-09-03T15:53:12.567Z",
+      "lastActiveAt": "2026-09-03T15:53:12.567Z",
       "isActive": true
     },
     "usr_admin_b343411d2f30": {
@@ -49,6 +49,42 @@
       "updatedAt": "2026-09-02T15:05:21.218Z",
       "lastLoginAt": "2026-09-02T15:05:21.218Z",
       "lastActiveAt": "2026-09-02T15:05:21.218Z",
+      "isActive": true
+    },
+    "usr_d512a13d32869345": {
+      "id": "usr_d512a13d32869345",
+      "fullName": "Vercel Deployment Tester",
+      "email": "test_deploy_1788456502815@example.com",
+      "passwordHash": "$2b$10$IyVBRY2qGYf/eywTMMRfrePFILJUzXiiZyxIRk7I2ipvkE0eJ1276",
+      "googleId": null,
+      "avatarUrl": null,
+      "profileImageType": "default",
+      "avatarId": null,
+      "avatarBgColor": null,
+      "authProvider": "local",
+      "role": "USER",
+      "createdAt": "2026-09-03T17:28:22.942Z",
+      "updatedAt": "2026-09-03T17:28:22.942Z",
+      "lastLoginAt": "2026-09-03T17:28:23.069Z",
+      "lastActiveAt": "2026-09-03T17:28:23.069Z",
+      "isActive": true
+    },
+    "usr_902f265324b9b300": {
+      "id": "usr_902f265324b9b300",
+      "fullName": "Vercel Deployment Tester",
+      "email": "test_deploy_1788527590001@example.com",
+      "passwordHash": "$2b$10$BV0IPCWILJPwwxaAIRju5ugc2h2QR31cyV3Ou9oB8UitQnzhSAuO2",
+      "googleId": null,
+      "avatarUrl": null,
+      "profileImageType": "default",
+      "avatarId": null,
+      "avatarBgColor": null,
+      "authProvider": "local",
+      "role": "USER",
+      "createdAt": "2026-09-04T13:13:10.224Z",
+      "updatedAt": "2026-09-04T13:13:10.224Z",
+      "lastLoginAt": "2026-09-04T13:13:10.414Z",
+      "lastActiveAt": "2026-09-04T13:13:10.414Z",
       "isActive": true
     }
   },
@@ -1231,10 +1267,162 @@
       "eventType": "bible_opened",
       "timestamp": "2026-09-03T15:41:30.751Z",
       "metadata": {}
+    },
+    {
+      "id": "evt_85f235edd269e1d6",
+      "userId": "usr_admin_holybibleplus",
+      "sessionId": "sess_log_usr_admin_holybibleplus",
+      "eventType": "login",
+      "timestamp": "2026-09-03T15:53:03.394Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_dd475c71193fa427",
+      "userId": "usr_admin_holybibleplus",
+      "sessionId": "sess_log_usr_admin_holybibleplus",
+      "eventType": "login",
+      "timestamp": "2026-09-03T15:53:07.052Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_99e7d146147fa920",
+      "userId": "usr_admin_holybibleplus",
+      "sessionId": "sess_log_usr_admin_holybibleplus",
+      "eventType": "login",
+      "timestamp": "2026-09-03T15:53:12.567Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_ea85a4ffdc8c82a6",
+      "userId": null,
+      "sessionId": "sess_huh8ql7fi_1788293681539",
+      "eventType": "app_open",
+      "timestamp": "2026-09-03T15:54:21.625Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_197a52d0e00b756d",
+      "userId": null,
+      "sessionId": "sess_huh8ql7fi_1788293681539",
+      "eventType": "session_start",
+      "timestamp": "2026-09-03T15:54:21.629Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_5aa57c465a2940a5",
+      "userId": null,
+      "sessionId": "sess_huh8ql7fi_1788293681539",
+      "eventType": "session_start",
+      "timestamp": "2026-09-03T16:31:11.310Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_4b980b6fb192cd64",
+      "userId": null,
+      "sessionId": "sess_huh8ql7fi_1788293681539",
+      "eventType": "app_open",
+      "timestamp": "2026-09-03T16:31:11.313Z",
+      "metadata": {}
+    },
+    {
+      "id": "evt_c89530de394d2bc9",
+      "userId": null,
+      "sessionId": "sess_anon",
+      "eventType": "app_launch",
+      "timestamp": "2026-09-03T17:27:47.124Z",
+      "metadata": {
+        "platform": "vercel_test"
+      }
+    },
+    {
+      "id": "evt_4c9c50d476b951b9",
+      "userId": "usr_d512a13d32869345",
+      "sessionId": "sess_reg_usr_d512a13d32869345",
+      "eventType": "account_created",
+      "timestamp": "2026-09-03T17:28:22.947Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_0621ad77d0e20d52",
+      "userId": "usr_d512a13d32869345",
+      "sessionId": "sess_reg_usr_d512a13d32869345",
+      "eventType": "login",
+      "timestamp": "2026-09-03T17:28:22.947Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_90716952575aed57",
+      "userId": "usr_d512a13d32869345",
+      "sessionId": "sess_log_usr_d512a13d32869345",
+      "eventType": "login",
+      "timestamp": "2026-09-03T17:28:23.070Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_dbe81740294c116e",
+      "userId": null,
+      "sessionId": "sess_anon",
+      "eventType": "app_launch",
+      "timestamp": "2026-09-03T17:28:23.084Z",
+      "metadata": {
+        "platform": "vercel_test"
+      }
+    },
+    {
+      "id": "evt_c51006a979dc2e9d",
+      "userId": "usr_902f265324b9b300",
+      "sessionId": "sess_reg_usr_902f265324b9b300",
+      "eventType": "account_created",
+      "timestamp": "2026-09-04T13:13:10.229Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_55be31cb8cedd74f",
+      "userId": "usr_902f265324b9b300",
+      "sessionId": "sess_reg_usr_902f265324b9b300",
+      "eventType": "login",
+      "timestamp": "2026-09-04T13:13:10.229Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_7e035a0ac7009a12",
+      "userId": "usr_902f265324b9b300",
+      "sessionId": "sess_log_usr_902f265324b9b300",
+      "eventType": "login",
+      "timestamp": "2026-09-04T13:13:10.415Z",
+      "metadata": {
+        "method": "email"
+      }
+    },
+    {
+      "id": "evt_d9e65bf01fd5e010",
+      "userId": null,
+      "sessionId": "sess_anon",
+      "eventType": "app_launch",
+      "timestamp": "2026-09-04T13:13:10.429Z",
+      "metadata": {
+        "platform": "vercel_test"
+      }
     }
   ],
   "meta": {
     "version": 1,
-    "lastUpdated": "2026-09-03T15:53:02.047Z"
+    "lastUpdated": "2026-09-04T13:13:11.930Z"
   }
 }

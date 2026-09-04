@@ -200,15 +200,30 @@ You MUST return ONLY valid JSON matching this exact structure:
   "closingPrayer": "A moving, uplifting pastoral closing prayer"
 }`;
 
-        const response = await client.models.generateContent({
-          model: 'gemini-2.5-flash',
-          contents: prompt,
-          config: {
-            systemInstruction: 'You are an evangelical Bible scholar and homiletics instructor. Return pure, valid JSON with no markdown backticks, explanations, or extra commentary.',
-            temperature: 0.7,
-            responseMimeType: 'application/json',
-          },
-        });
+        const modelName = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
+        let response;
+        try {
+          response = await client.models.generateContent({
+            model: modelName,
+            contents: prompt,
+            config: {
+              systemInstruction: 'You are an evangelical Bible scholar and homiletics instructor. Return pure, valid JSON with no markdown backticks, explanations, or extra commentary.',
+              temperature: 0.7,
+              responseMimeType: 'application/json',
+            },
+          });
+        } catch (modelErr: any) {
+          // If default model is unavailable, try gemini-3.7-flash or gemini-2.5-flash
+          response = await client.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+            config: {
+              systemInstruction: 'You are an evangelical Bible scholar and homiletics instructor. Return pure, valid JSON with no markdown backticks, explanations, or extra commentary.',
+              temperature: 0.7,
+              responseMimeType: 'application/json',
+            },
+          });
+        }
 
         const rawText = response.text || '';
         const cleaned = rawText.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();

@@ -6,7 +6,8 @@ const router = Router();
 // POST /api/ai/message-outline
 router.post('/message-outline', async (req, res) => {
   try {
-    const { topicOrPassage, audience, style, pointsCount, bibleVersion } = req.body;
+    const topicOrPassage = req.body.topicOrPassage || req.body.topic || req.body.passage;
+    const { audience, style, pointsCount, bibleVersion } = req.body;
 
     if (!topicOrPassage || typeof topicOrPassage !== 'string' || !topicOrPassage.trim()) {
       return res.status(400).json({ error: 'Please provide a topic, theme, or scripture passage.' });
